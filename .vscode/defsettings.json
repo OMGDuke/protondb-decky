@@ -1,0 +1,7 @@
+{
+    "deckip"    : "192.168.0.72",
+    "deckport"  : "22",
+    "deckpass"  : "ENTER_PASSWORD",
+    "deckkey"   : "-i ${env:HOME}/.ssh/id_ed25519",
+    "deckdir"   : "/home/deck"
+}
