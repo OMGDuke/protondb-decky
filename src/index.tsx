@@ -17,8 +17,6 @@ export default definePlugin((serverAPI: ServerAPI) => {
         props.children.props,
         'renderFunc',
         (_: Record<string, unknown>[], ret: ReactElement) => {
-          console.log('ret', ret)
-          console.log('typeof', typeof ret)
           afterPatch(
             ret.props.children.type,
             'type',
