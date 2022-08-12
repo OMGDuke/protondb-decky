@@ -1,10 +1,10 @@
 {
   "name": "ProtonDB Badges",
   "author": "OMGDuke",
-  "flags": ["debug", "_root"],
+  "flags": [],
   "publish": {
-    "tags": ["template", "root"],
+    "tags": ["protondb"],
     "description": "Display tappable ProtonDB badges on your game pages",
-    "image": "https://opengraph.githubassets.com/1/SteamDeckHomebrew/PluginLoader"
+    "image": "https://raw.githubusercontent.com/OMGDuke/protondb-decky/main/assets/screenshot.jpg"
   }
 }
