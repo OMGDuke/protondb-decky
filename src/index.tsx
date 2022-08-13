@@ -22,13 +22,13 @@ export default definePlugin((serverAPI: ServerAPI) => {
             'type',
             (_2: Record<string, unknown>[], ret2: ReactElement) => {
               const alreadySpliced = Boolean(
-                ret2.props.children[1].props.children.props.children.find(
+                ret2.props?.children?.[1]?.props.children.props.children.find(
                   (child: ReactElement) =>
                     child?.props?.className === 'protondb-decky-indicator'
                 )
               )
               if (!alreadySpliced) {
-                ret2.props.children[1].props.children.props.children.splice(
+                ret2.props.children?.[1]?.props.children.props.children.splice(
                   1,
                   0,
                   <ProtonMedal
