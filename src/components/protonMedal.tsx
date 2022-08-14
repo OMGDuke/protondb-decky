@@ -1,10 +1,4 @@
-import {
-  Button,
-  ButtonProps,
-  DialogButton,
-  Router,
-  ServerAPI
-} from 'decky-frontend-lib'
+import { Button, ButtonProps, Router, ServerAPI } from 'decky-frontend-lib'
 import { ReactElement, useEffect, useState, FC, CSSProperties } from 'react'
 import { appTypes } from '../constants'
 
