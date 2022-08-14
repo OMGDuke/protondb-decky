@@ -1,5 +1,11 @@
-import { DialogButton, Router, ServerAPI } from 'decky-frontend-lib'
-import { ReactElement, useEffect, useState } from 'react'
+import {
+  Button,
+  ButtonProps,
+  DialogButton,
+  Router,
+  ServerAPI
+} from 'decky-frontend-lib'
+import { ReactElement, useEffect, useState, FC, CSSProperties } from 'react'
 import { appTypes } from '../constants'
 
 const tierColours = {
@@ -16,6 +22,14 @@ const tierLogoChanges = {
   none: { brightness: 1, invert: 0 },
   borked: { brightness: 0, invert: 1 }
 }
+
+type ExtendedButtonProps = ButtonProps & {
+  children: ReactElement | ReactElement[]
+  type: 'button'
+  style: CSSProperties
+}
+
+const DeckButton = Button as FC<ExtendedButtonProps>
 
 export default function ProtonMedal({
   serverAPI,
@@ -63,13 +77,14 @@ export default function ProtonMedal({
   }, [appId])
 
   const badge = protonDBTier ? (
-    <DialogButton
+    <DeckButton
       className={className}
       type="button"
       onClick={() => {
         Router.NavigateToExternalWeb(`https://www.protondb.com/app/${appId}`)
       }}
       style={{
+        border: 'none',
         top: 40,
         left: 20,
         position: 'absolute',
@@ -102,7 +117,7 @@ export default function ProtonMedal({
       <span style={{ marginLeft: 10, fontSize: 20 }}>
         {`${protonDBTier?.charAt(0).toUpperCase()}${protonDBTier?.slice(1)}`}
       </span>
-    </DialogButton>
+    </DeckButton>
   ) : (
     <div />
   )

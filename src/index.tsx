@@ -2,7 +2,8 @@ import {
   afterPatch,
   definePlugin,
   ServerAPI,
-  staticClasses
+  staticClasses,
+  wrapReactType
 } from 'decky-frontend-lib'
 import { ReactElement } from 'react'
 import { SiProtondb } from 'react-icons/si'
@@ -17,6 +18,7 @@ export default definePlugin((serverAPI: ServerAPI) => {
         props.children.props,
         'renderFunc',
         (_: Record<string, unknown>[], ret: ReactElement) => {
+          wrapReactType(ret.props.children)
           afterPatch(
             ret.props.children.type,
             'type',
