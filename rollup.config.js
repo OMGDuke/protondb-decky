@@ -1,12 +1,13 @@
-import commonjs from '@rollup/plugin-commonjs';
-import json from '@rollup/plugin-json';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import replace from '@rollup/plugin-replace';
-import typescript from '@rollup/plugin-typescript';
-import { defineConfig } from 'rollup';
-import importAssets from 'rollup-plugin-import-assets';
+import commonjs from '@rollup/plugin-commonjs'
+import json from '@rollup/plugin-json'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import replace from '@rollup/plugin-replace'
+import typescript from '@rollup/plugin-typescript'
+import { defineConfig } from 'rollup'
+import importAssets from 'rollup-plugin-import-assets'
+import styles from 'rollup-plugin-styles'
 
-import { name } from './plugin.json';
+import { name } from './plugin.json'
 
 export default defineConfig({
   input: './src/index.tsx',
@@ -17,11 +18,12 @@ export default defineConfig({
     json(),
     replace({
       preventAssignment: false,
-      'process.env.NODE_ENV': JSON.stringify('production'),
+      'process.env.NODE_ENV': JSON.stringify('production')
     }),
     importAssets({
-      publicPath: `http://127.0.0.1:1337/plugins/${name}/`,
+      publicPath: `http://127.0.0.1:1337/plugins/${name}/`
     }),
+    styles()
   ],
   context: 'window',
   external: ['react', 'react-dom'],
@@ -29,9 +31,10 @@ export default defineConfig({
     file: 'dist/index.js',
     globals: {
       react: 'SP_REACT',
-      'react-dom': 'SP_REACTDOM',
+      'react-dom': 'SP_REACTDOM'
     },
     format: 'iife',
     exports: 'default',
-  },
-});
+    assetFileNames: '[name]-[hash][extname]'
+  }
+})
