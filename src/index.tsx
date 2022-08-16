@@ -7,7 +7,6 @@ import {
 } from 'decky-frontend-lib'
 import { ReactElement } from 'react'
 import { SiProtondb } from 'react-icons/si'
-
 import ProtonMedal from './components/protonMedal'
 
 export default definePlugin((serverAPI: ServerAPI) => {
