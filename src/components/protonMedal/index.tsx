@@ -1,9 +1,11 @@
 import { Button, ButtonProps, Router, ServerAPI } from 'decky-frontend-lib'
-import { ReactElement, useEffect, useState, FC, CSSProperties } from 'react'
+import { ReactElement, FC, CSSProperties } from 'react'
 import { FaReact } from 'react-icons/fa'
 import { IoLogoTux } from 'react-icons/io'
 
-import { appTypes } from '../constants'
+import useAppId from '../../hooks/useAppId'
+import useLinuxSupport from '../../hooks/useLinuxSupport'
+import useProtonDBTier from '../../hooks/useProtonDBTier'
 
 import './protonMedal.css'
 
@@ -32,77 +34,9 @@ export default function ProtonMedal({
   serverAPI: ServerAPI
   className: string
 }): ReactElement {
-  const [protonDBTier, setProtonDBTier] = useState<
-    'borked' | 'platinum' | 'gold' | 'silver' | 'bronze' | 'pending' | 'none'
-  >()
-  const [linuxSupport, setLinuxSupport] = useState<boolean>(false)
-  const splitPath = window?.location?.pathname?.split('/')
-  // /routes/library/app/:appId but this can contain /tab/YourStuff or other tabs so we have to take the 4th item. Probably a better solution with regex
-  const appId = splitPath?.[4]
-
-  useEffect(() => {
-    let ignore = false
-    async function getProtonDBInfo() {
-      const req = {
-        method: 'GET',
-        url: `https://www.protondb.com/api/v1/reports/summaries/${appId}.json`
-      }
-      const res = await serverAPI.callServerMethod<
-        { method: string; url: string },
-        { body: string; status: number }
-      >('http_request', req)
-      if (ignore) {
-        return
-      }
-      if (res.success && res.result.status === 200) {
-        setProtonDBTier(JSON.parse(res.result?.body).tier)
-      } else {
-        setProtonDBTier('pending')
-      }
-    }
-    const appType = appStore.GetAppOverviewByGameID(parseInt(appId))?.app_type
-    const isSteamGame = Boolean(appTypes[appType as keyof typeof appTypes])
-
-    if (appId?.length && isSteamGame) {
-      getProtonDBInfo()
-    }
-    return () => {
-      ignore = true
-    }
-  }, [appId])
-
-  useEffect(() => {
-    let ignore = false
-    async function getLinuxInfo() {
-      const req = {
-        method: 'GET',
-        url: `https://www.protondb.com/proxy/steam/api/appdetails/?appids=${appId}`
-      }
-      const res = await serverAPI.callServerMethod<
-        { method: string; url: string },
-        { body: string; status: number }
-      >('http_request', req)
-      if (ignore) {
-        return
-      }
-      if (res.success && res.result.status === 200) {
-        setLinuxSupport(
-          Boolean(JSON.parse(res.result?.body)?.[appId]?.data?.platforms?.linux)
-        )
-      } else {
-        setLinuxSupport(false)
-      }
-    }
-    const appType = appStore.GetAppOverviewByGameID(parseInt(appId))?.app_type
-    const isSteamGame = Boolean(appTypes[appType as keyof typeof appTypes])
-
-    if (appId?.length && isSteamGame) {
-      getLinuxInfo()
-    }
-    return () => {
-      ignore = true
-    }
-  }, [appId])
+  const appId = useAppId(serverAPI)
+  const protonDBTier = useProtonDBTier(serverAPI, appId)
+  const linuxSupport = useLinuxSupport(serverAPI, appId)
 
   const badge = protonDBTier ? (
     <DeckButton
