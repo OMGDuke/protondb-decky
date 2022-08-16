@@ -2,6 +2,7 @@ import { Button, ButtonProps, Router, ServerAPI } from 'decky-frontend-lib'
 import { ReactElement, FC, CSSProperties } from 'react'
 import { FaReact } from 'react-icons/fa'
 import { IoLogoTux } from 'react-icons/io'
+import { useSettings } from '../../context/settingsContext'
 
 import useAppId from '../../hooks/useAppId'
 import useLinuxSupport from '../../hooks/useLinuxSupport'
@@ -27,6 +28,9 @@ export default function ProtonMedal({
   const appId = useAppId(serverAPI)
   const protonDBTier = useProtonDBTier(serverAPI, appId)
   const linuxSupport = useLinuxSupport(serverAPI, appId)
+
+  const { state } = useSettings()
+
   if (!protonDBTier) return <></>
   return (
     <DeckButton
@@ -51,19 +55,23 @@ export default function ProtonMedal({
         color={protonDBTier?.textColor}
         style={{ marginLeft: linuxSupport ? 10 : 0 }}
       />
-      <span
-        style={{
-          marginLeft: 10,
-          fontSize: 24,
-          width: '132px',
-          textTransform: 'uppercase',
-          fontFamily: 'Abel,"Motiva Sans",Arial,Helvetica,sans-serif',
-          lineHeight: '24px',
-          marginRight: '28px'
-        }}
-      >
-        {protonDBTier.label}
-      </span>
+      {state.minimalist ? (
+        <></>
+      ) : (
+        <span
+          style={{
+            marginLeft: 10,
+            fontSize: 24,
+            width: '132px',
+            textTransform: 'uppercase',
+            fontFamily: 'Abel,"Motiva Sans",Arial,Helvetica,sans-serif',
+            lineHeight: '24px',
+            marginRight: '28px'
+          }}
+        >
+          {protonDBTier.label}
+        </span>
+      )}
     </DeckButton>
   )
 }

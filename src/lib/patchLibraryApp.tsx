@@ -1,6 +1,7 @@
 import { afterPatch, ServerAPI, wrapReactType } from 'decky-frontend-lib'
 import { ReactElement } from 'react'
 import ProtonMedal from '../components/protonMedal'
+import { SettingsProvider } from '../context/settingsContext'
 
 function patchLibraryApp(serverAPI: ServerAPI) {
   return serverAPI.routerHook.addPatch(
@@ -25,10 +26,12 @@ function patchLibraryApp(serverAPI: ServerAPI) {
                 ret2.props.children?.[1]?.props.children.props.children.splice(
                   1,
                   0,
-                  <ProtonMedal
-                    serverAPI={serverAPI}
-                    className="protondb-decky-indicator"
-                  />
+                  <SettingsProvider>
+                    <ProtonMedal
+                      serverAPI={serverAPI}
+                      className="protondb-decky-indicator"
+                    />
+                  </SettingsProvider>
                 )
               }
               return ret2
