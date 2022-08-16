@@ -9,16 +9,6 @@ import useProtonDBTier from '../../hooks/useProtonDBTier'
 
 import './protonMedal.css'
 
-const tierColours = {
-  none: { background: 'white', text: 'black' },
-  pending: { background: 'rgb(68, 68, 68)', text: 'white' },
-  borked: { background: 'red', text: 'black' },
-  bronze: { background: 'rgb(205, 127, 50)', text: 'black' },
-  silver: { background: 'rgb(166, 166, 166)', text: 'black' },
-  gold: { background: 'rgb(207, 181, 59)', text: 'black' },
-  platinum: { background: 'rgb(180, 199, 220)', text: 'black' }
-}
-
 type ExtendedButtonProps = ButtonProps & {
   children: ReactElement | ReactElement[]
   type: 'button'
@@ -37,8 +27,8 @@ export default function ProtonMedal({
   const appId = useAppId(serverAPI)
   const protonDBTier = useProtonDBTier(serverAPI, appId)
   const linuxSupport = useLinuxSupport(serverAPI, appId)
-
-  const badge = protonDBTier ? (
+  if (!protonDBTier) return <></>
+  return (
     <DeckButton
       className={className}
       type="button"
@@ -50,9 +40,9 @@ export default function ProtonMedal({
         top: 40,
         left: 20,
         position: 'absolute',
-        background: (tierColours[protonDBTier] || tierColours.none).background,
+        background: protonDBTier?.backgroundColor,
         zIndex: 20,
-        color: (tierColours[protonDBTier] || tierColours.none).text,
+        color: protonDBTier?.textColor,
         padding: '6px 18px',
         display: 'flex',
         alignItems: 'center',
@@ -61,17 +51,14 @@ export default function ProtonMedal({
       }}
     >
       {linuxSupport ? (
-        <IoLogoTux
-          size={28}
-          color={tierColours[protonDBTier].text === 'white' ? '#fff' : '#000'}
-        />
+        <IoLogoTux size={28} color={protonDBTier?.textColor} />
       ) : (
         <></>
       )}
       {/* The ProtonDB logo has a distracting background, so React's logo is being used as a close substitute */}
       <FaReact
         size={28}
-        color={tierColours[protonDBTier].text === 'white' ? '#fff' : '#000'}
+        color={protonDBTier?.textColor}
         style={{ marginLeft: linuxSupport ? 10 : 0 }}
       />
       <span
@@ -85,12 +72,8 @@ export default function ProtonMedal({
           marginRight: '28px'
         }}
       >
-        {`${protonDBTier?.charAt(0).toUpperCase()}${protonDBTier?.slice(1)}`}
+        {protonDBTier.label}
       </span>
     </DeckButton>
-  ) : (
-    <div />
   )
-
-  return badge
 }

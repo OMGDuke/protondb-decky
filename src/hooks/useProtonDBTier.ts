@@ -1,9 +1,38 @@
 import { ServerAPI } from 'decky-frontend-lib'
 import { useEffect, useState } from 'react'
 
+const tiers = {
+  pending: {
+    label: 'PENDING',
+    backgroundColor: 'rgb(68, 68, 68)',
+    textColor: 'white'
+  },
+  borked: { label: 'BORKED', backgroundColor: 'red', textColor: 'black' },
+  bronze: {
+    label: 'BRONZE',
+    backgroundColor: 'rgb(205, 127, 50)',
+    textColor: 'black'
+  },
+  silver: {
+    label: 'SILVER',
+    backgroundColor: 'rgb(166, 166, 166)',
+    textColor: 'black'
+  },
+  gold: {
+    label: 'GOLD',
+    backgroundColor: 'rgb(207, 181, 59)',
+    textColor: 'black'
+  },
+  platinum: {
+    label: 'PLATINUM',
+    backgroundColor: 'rgb(180, 199, 220)',
+    textColor: 'black'
+  }
+}
+
 const useProtonDBTier = (serverAPI: ServerAPI, appId: string | undefined) => {
   const [protonDBTier, setProtonDBTier] = useState<
-    'borked' | 'platinum' | 'gold' | 'silver' | 'bronze' | 'pending' | 'none'
+    'borked' | 'platinum' | 'gold' | 'silver' | 'bronze' | 'pending'
   >()
 
   useEffect(() => {
@@ -35,7 +64,7 @@ const useProtonDBTier = (serverAPI: ServerAPI, appId: string | undefined) => {
     }
   }, [appId])
 
-  return protonDBTier
+  return protonDBTier ? tiers[protonDBTier] : undefined
 }
 
 export default useProtonDBTier
