@@ -36,18 +36,8 @@ export default function ProtonMedal({
         Router.NavigateToExternalWeb(`https://www.protondb.com/app/${appId}`)
       }}
       style={{
-        border: 'none',
-        top: 40,
-        left: 20,
-        position: 'absolute',
         background: protonDBTier?.backgroundColor,
-        zIndex: 20,
-        color: protonDBTier?.textColor,
-        padding: '6px 18px',
-        display: 'flex',
-        alignItems: 'center',
-        width: 'max-content',
-        outlineColor: '#fff0'
+        color: protonDBTier?.textColor
       }}
     >
       {linuxSupport ? (
