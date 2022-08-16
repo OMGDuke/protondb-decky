@@ -49,7 +49,7 @@ const useAppId = (serverAPI: ServerAPI) => {
     if (isSteamGame) {
       setAppId(pathId)
     } else {
-      getNonSteamAppId(appDetails.display_name)
+      getNonSteamAppId(appDetails?.display_name)
     }
     return () => {
       ignore = true
