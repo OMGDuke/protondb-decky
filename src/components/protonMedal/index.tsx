@@ -40,10 +40,12 @@ export default function ProtonMedal({
   const { state } = useSettings()
 
   if (!protonDBTier) return <></>
+  const tierClass = `protondb-decky-indicator-${protonDBTier.key}`
+  const nativeClass = linuxSupport ? 'protondb-decky-indicator-native' : ''
   if (state.size === 'minimalist') {
     return (
       <DeckButton
-        className={className}
+        className={`${className} ${tierClass} ${nativeClass}`}
         type="button"
         onClick={() => {
           Router.NavigateToExternalWeb(`https://www.protondb.com/app/${appId}`)
@@ -68,7 +70,7 @@ export default function ProtonMedal({
 
   return (
     <DeckButton
-      className={className}
+      className={`${className} ${tierClass} ${nativeClass}`}
       type="button"
       onClick={() => {
         Router.NavigateToExternalWeb(`https://www.protondb.com/app/${appId}`)

@@ -3,27 +3,37 @@ import { useEffect, useState } from 'react'
 
 const tiers = {
   pending: {
+    key: 'pending',
     label: 'PENDING',
     backgroundColor: 'rgb(68, 68, 68)',
     textColor: 'white'
   },
-  borked: { label: 'BORKED', backgroundColor: 'red', textColor: 'black' },
+  borked: {
+    key: 'borked',
+    label: 'BORKED',
+    backgroundColor: 'red',
+    textColor: 'black'
+  },
   bronze: {
+    key: 'bronze',
     label: 'BRONZE',
     backgroundColor: 'rgb(205, 127, 50)',
     textColor: 'black'
   },
   silver: {
+    key: 'silver',
     label: 'SILVER',
     backgroundColor: 'rgb(166, 166, 166)',
     textColor: 'black'
   },
   gold: {
+    key: 'gold',
     label: 'GOLD',
     backgroundColor: 'rgb(207, 181, 59)',
     textColor: 'black'
   },
   platinum: {
+    key: 'platinum',
     label: 'PLATINUM',
     backgroundColor: 'rgb(180, 199, 220)',
     textColor: 'black'
