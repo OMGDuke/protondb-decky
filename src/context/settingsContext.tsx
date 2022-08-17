@@ -47,7 +47,7 @@ function SettingsProvider({ children }: SettingsProviderProps) {
             }
           })
         })
-        .catch((e) => {
+        .catch(() => {
           dispatch({
             type: 'set-settings',
             value: defaultSettings
