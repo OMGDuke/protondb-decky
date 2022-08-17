@@ -5,17 +5,20 @@
 
 .protondb-decky-indicator {
   border: none;
-  top: 40px;
-  left: 20px;
   position: absolute;
   z-index: 20;
-  padding: 6px 18px;
   display: flex;
   align-items: center;
   width: max-content;
+  height: max-content;
   outline-color: #fff;
 }
 
-.protondb-decky-indicator.gpfocus {
+.protondb-decky-indicator.gpfocus, .protondb-decky-indicator:hover {
   filter: brightness(1.3);
+}
+
+.protondb-decky-indicator span {
+  height: max-content;
+  fontFamily: Abel,"Motiva Sans",Arial,Helvetica,sans-serif;
 }

@@ -40,7 +40,7 @@ const useAppId = (serverAPI: ServerAPI) => {
       }
     }
     const splitPath = window?.location?.pathname?.split('/')
-    // /routes/library/app/:appId but this can contain /tab/YourStuff or other tabs so we have to take the 4th item. Probably a better solution with regex
+    // TODO: /routes/library/app/:appId but this can contain /tab/YourStuff or other tabs so we have to take the 4th item. Probably a better solution with regex
     const pathId = splitPath?.[4]
     const appDetails = appStore.GetAppOverviewByGameID(parseInt(pathId))
     const isSteamGame = Boolean(

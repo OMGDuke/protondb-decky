@@ -30,6 +30,7 @@ declare namespace SteamClient {
   const Storage: {
     GetJSON(key: string): Promise<string>
     SetObject(key: string, value: Record<string, unknown>): Promise<void>
+    DeleteKey(key: string): Promise<void>
   }
 }
 
@@ -100,7 +101,6 @@ type Shortcut = {
 }
 
 type AppOverview = {
-  // Steam games have a value of 1
   app_type: number
   appid: string
   display_name: string
