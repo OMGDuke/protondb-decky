@@ -73,8 +73,15 @@ const useProtonDBTier = (serverAPI: ServerAPI, appId: string | undefined) => {
       ignore = true
     }
   }, [appId])
-
-  return protonDBTier ? tiers[protonDBTier] : undefined
+  if (protonDBTier && tiers[protonDBTier]) {
+    if (tiers[protonDBTier]) {
+      return tiers[protonDBTier]
+    } else {
+      return tiers.pending
+    }
+  } else {
+    return undefined
+  }
 }
 
 export default useProtonDBTier

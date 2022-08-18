@@ -40,7 +40,7 @@ export default function ProtonMedal({
   const { state } = useSettings()
 
   if (!protonDBTier) return <></>
-  const tierClass = `protondb-decky-indicator-${protonDBTier.key}`
+  const tierClass = `protondb-decky-indicator-${protonDBTier?.key}`
   const nativeClass = linuxSupport ? 'protondb-decky-indicator-native' : ''
   if (state.size === 'minimalist') {
     return (
@@ -105,8 +105,8 @@ export default function ProtonMedal({
         }}
       >
         {state.size === 'small'
-          ? protonDBTier.label.slice(0, 4)
-          : protonDBTier.label}
+          ? protonDBTier?.label.slice(0, 4)
+          : protonDBTier?.label}
       </span>
     </DeckButton>
   )
