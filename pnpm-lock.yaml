@@ -11,7 +11,7 @@ specifiers:
   '@types/webpack': ^5.28.0
   '@typescript-eslint/eslint-plugin': ^5.33.1
   '@typescript-eslint/parser': ^5.33.1
-  decky-frontend-lib: ^1.7.2
+  decky-frontend-lib: ^1.7.5
   eslint: ^8.22.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-prettier: ^4.2.1
@@ -27,7 +27,7 @@ specifiers:
   typescript: ^4.7.4
 
 dependencies:
-  decky-frontend-lib: 1.7.3
+  decky-frontend-lib: 1.7.5
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.4.0_react@18.2.0
@@ -926,8 +926,8 @@ packages:
       ms: 2.1.2
     dev: true
 
-  /decky-frontend-lib/1.7.3:
-    resolution: {integrity: sha512-9lrergYx1EgCek5QxuI6JYmGUziAVNsMbA6Ap/PVlJS/oR+fQYFtd/ZdGxHeXU9Del2eZOQL6dJtat8rYgF6QQ==}
+  /decky-frontend-lib/1.7.5:
+    resolution: {integrity: sha512-1OX/Ix9W76gF0NJjfm0k/01LYPmC2k/k+k/qqH8JJPlPHh5+W5P8ZG2T8m5wKsqoP7jx2W3k7RNZBh9vAqFoFw==}
     dependencies:
       minimist: 1.2.6
     dev: false

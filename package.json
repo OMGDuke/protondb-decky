@@ -1,6 +1,6 @@
 {
   "name": "protondb-decky",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Display tappable ProtonDB badges on your game pages",
   "scripts": {
     "build": "shx rm -rf dist && rollup -c",
@@ -47,7 +47,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "decky-frontend-lib": "^1.7.2",
+    "decky-frontend-lib": "^1.7.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0"
