@@ -1,10 +1,13 @@
 import {
+  ButtonItem,
+  ButtonItemProps,
   DropdownItem,
   PanelSection,
   PanelSectionProps,
   PanelSectionRow
 } from 'decky-frontend-lib'
 import React, { FC, ReactNode } from 'react'
+import { useProtonDBCache } from '../../context/protobDbCacheContext'
 import { useSettings } from '../../context/settingsContext'
 
 type ExtendedPanelSectionProps = PanelSectionProps & {
@@ -18,6 +21,12 @@ type PanelSectionRowProps = {
 }
 
 const DeckPanelSectionRow = PanelSectionRow as FC<PanelSectionRowProps>
+
+type ExtendedButtonItemProps = ButtonItemProps & {
+  children: ReactNode
+}
+
+const DeckButtonItem = ButtonItem as FC<ExtendedButtonItemProps>
 
 const sizeOptions = [
   { data: 0, label: 'Regular', value: 'regular' },
@@ -34,60 +43,79 @@ const positionOptions = [
 ] as const
 
 export default function Index() {
-  const { state, dispatch } = useSettings()
+  const { state: settingsState, dispatch: settingsDispatch } = useSettings()
+  const { dispatch: cacheDispatch } = useProtonDBCache()
   return (
-    <DeckPanelSection>
-      <DeckPanelSectionRow>
-        <DropdownItem
-          label="Badge Size"
-          description="Choose a different size for the badge"
-          menuLabel="Badge Size"
-          rgOptions={sizeOptions.map((o) => ({
-            data: o.data,
-            label: o.label
-          }))}
-          selectedOption={
-            sizeOptions.find((o) => o.value === state.size)?.data || 0
-          }
-          onChange={(newVal: { data: number; label: string }) => {
-            const newSize =
-              sizeOptions.find((o) => o.data === newVal.data)?.value ||
-              'regular'
-            dispatch({
-              type: 'set-size',
-              value: newSize
-            })
-            SteamClient.Storage.SetObject('protondb-badges-settings', {
-              size: newSize
-            })
-          }}
-        />
-      </DeckPanelSectionRow>
-      <DeckPanelSectionRow>
-        <DropdownItem
-          label="Badge Position"
-          description="Positon the badge within the the game page header"
-          menuLabel="Badge Position"
-          rgOptions={positionOptions.map((o) => ({
-            data: o.data,
-            label: o.label
-          }))}
-          selectedOption={
-            positionOptions.find((o) => o.value === state.position)?.data || 0
-          }
-          onChange={(newVal: { data: number; label: string }) => {
-            const newPosition =
-              positionOptions.find((o) => o.data === newVal.data)?.value || 'tl'
-            dispatch({
-              type: 'set-position',
-              value: newPosition
-            })
-            SteamClient.Storage.SetObject('protondb-badges-settings', {
-              position: newPosition
-            })
-          }}
-        />
-      </DeckPanelSectionRow>
-    </DeckPanelSection>
+    <div>
+      <DeckPanelSection title="Settings">
+        <DeckPanelSectionRow>
+          <DropdownItem
+            label="Badge Size"
+            description="Choose a different size for the badge"
+            menuLabel="Badge Size"
+            rgOptions={sizeOptions.map((o) => ({
+              data: o.data,
+              label: o.label
+            }))}
+            selectedOption={
+              sizeOptions.find((o) => o.value === settingsState.size)?.data || 0
+            }
+            onChange={(newVal: { data: number; label: string }) => {
+              const newSize =
+                sizeOptions.find((o) => o.data === newVal.data)?.value ||
+                'regular'
+              settingsDispatch({
+                type: 'set-size',
+                value: newSize
+              })
+              SteamClient.Storage.SetObject('protondb-badges-settings', {
+                size: newSize
+              })
+            }}
+          />
+        </DeckPanelSectionRow>
+        <DeckPanelSectionRow>
+          <DropdownItem
+            label="Badge Position"
+            description="Positon the badge within the the game page header"
+            menuLabel="Badge Position"
+            rgOptions={positionOptions.map((o) => ({
+              data: o.data,
+              label: o.label
+            }))}
+            selectedOption={
+              positionOptions.find((o) => o.value === settingsState.position)
+                ?.data || 0
+            }
+            onChange={(newVal: { data: number; label: string }) => {
+              const newPosition =
+                positionOptions.find((o) => o.data === newVal.data)?.value ||
+                'tl'
+              settingsDispatch({
+                type: 'set-position',
+                value: newPosition
+              })
+              SteamClient.Storage.SetObject('protondb-badges-settings', {
+                position: newPosition
+              })
+            }}
+          />
+        </DeckPanelSectionRow>
+      </DeckPanelSection>
+      <DeckPanelSection title="Caching">
+        <DeckPanelSectionRow>
+          <DeckButtonItem
+            label="Clear the cache to force refresh all ProtonDB badges"
+            bottomSeparator={false}
+            layout="below"
+            onClick={() => {
+              cacheDispatch({ type: 'clear-cache' })
+            }}
+          >
+            Clear ProtonDB Cache
+          </DeckButtonItem>
+        </DeckPanelSectionRow>
+      </DeckPanelSection>
+    </div>
   )
 }

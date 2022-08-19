@@ -14,7 +14,9 @@ export default defineConfig({
   plugins: [
     commonjs(),
     nodeResolve(),
-    typescript(),
+    typescript({
+      outputToFilesystem: true
+    }),
     json(),
     replace({
       preventAssignment: false,
