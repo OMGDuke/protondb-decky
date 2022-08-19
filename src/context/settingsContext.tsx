@@ -1,4 +1,7 @@
 import * as React from 'react'
+
+const LOCAL_STORAGE_KEY = 'protondb-badges-settings'
+
 type State = {
   size: 'regular' | 'small' | 'minimalist'
   position: 'tl' | 'tr' | 'bl' | 'br'
@@ -36,7 +39,7 @@ function SettingsProvider({ children }: SettingsProviderProps) {
   const [state, dispatch] = React.useReducer(settingsReducer, defaultSettings)
   React.useEffect(() => {
     async function getSettings() {
-      SteamClient.Storage.GetJSON('protondb-badges-settings')
+      SteamClient.Storage.GetJSON(LOCAL_STORAGE_KEY)
         .then((result) => {
           const storedSettings = JSON.parse(result)
           dispatch({
