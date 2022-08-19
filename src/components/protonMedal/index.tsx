@@ -5,8 +5,7 @@ import { IoLogoTux } from 'react-icons/io'
 import { useSettings } from '../../context/settingsContext'
 
 import useAppId from '../../hooks/useAppId'
-import useLinuxSupport from '../../hooks/useLinuxSupport'
-import useProtonDBTier from '../../hooks/useProtonDBTier'
+import useBadgeData from '../../hooks/useBadgeData'
 
 import './protonMedal.css'
 
@@ -34,8 +33,7 @@ export default function ProtonMedal({
   className: string
 }): ReactElement {
   const appId = useAppId(serverAPI)
-  const protonDBTier = useProtonDBTier(serverAPI, appId)
-  const linuxSupport = useLinuxSupport(serverAPI, appId)
+  const { protonDBTier, linuxSupport, refresh } = useBadgeData(serverAPI, appId)
 
   const { state } = useSettings()
 
@@ -72,7 +70,8 @@ export default function ProtonMedal({
     <DeckButton
       className={`${className} ${tierClass} ${nativeClass}`}
       type="button"
-      onClick={() => {
+      onClick={async () => {
+        refresh()
         Router.NavigateToExternalWeb(`https://www.protondb.com/app/${appId}`)
       }}
       style={{
