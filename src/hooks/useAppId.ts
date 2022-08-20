@@ -1,6 +1,7 @@
 import { ServerAPI } from 'decky-frontend-lib'
 import { useEffect, useState } from 'react'
 import { appTypes } from '../constants'
+import { useParams } from './useParams'
 
 function cleanString(str: string) {
   return str
@@ -11,6 +12,7 @@ function cleanString(str: string) {
 
 const useAppId = (serverAPI: ServerAPI) => {
   const [appId, setAppId] = useState<string>()
+  const { appid: pathId } = useParams<{ appid: string }>()
 
   useEffect(() => {
     let ignore = false
@@ -39,9 +41,6 @@ const useAppId = (serverAPI: ServerAPI) => {
         setAppId(undefined)
       }
     }
-    const splitPath = window?.location?.pathname?.split('/')
-    // TODO: /routes/library/app/:appId but this can contain /tab/YourStuff or other tabs so we have to take the 4th item. Probably a better solution with regex
-    const pathId = splitPath?.[4]
     const appDetails = appStore.GetAppOverviewByGameID(parseInt(pathId))
     const isSteamGame = Boolean(
       appTypes[appDetails?.app_type as keyof typeof appTypes]
