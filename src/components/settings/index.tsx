@@ -68,9 +68,6 @@ export default function Index() {
                 type: 'set-size',
                 value: newSize
               })
-              SteamClient.Storage.SetObject('protondb-badges-settings', {
-                size: newSize
-              })
             }}
           />
         </DeckPanelSectionRow>
@@ -94,9 +91,6 @@ export default function Index() {
               settingsDispatch({
                 type: 'set-position',
                 value: newPosition
-              })
-              SteamClient.Storage.SetObject('protondb-badges-settings', {
-                position: newPosition
               })
             }}
           />
