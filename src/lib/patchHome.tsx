@@ -1,5 +1,7 @@
 import {
   afterPatch,
+  findModuleChild,
+  getReactInstance,
   ServerAPI,
   wrapReactClass,
   wrapReactType
@@ -16,17 +18,16 @@ function patchHome(serverAPI: ServerAPI) {
         'type',
         (_: Record<string, unknown>[], ret: ReactElement) => {
           wrapReactType(ret)
-          //   console.log('ret', ret)
           afterPatch(
             ret.type,
             'type',
             (_2: Record<string, unknown>[], ret2: ReactElement) => {
-              //   wrapReactType(
-              //     ret2.props.children.props.children.props.children.props
-              //       .children[0].props.children.props.children
-              //   )
-              // console.log(
-              //   'ret2',
+              console.log(
+                'ret2',
+                ret2.props.children.props.children.props.children.props
+                  .children[0].props.children.props.children
+              )
+              // wrapReactType(
               //   ret2.props.children.props.children.props.children.props
               //     .children[0].props.children.props.children
               // )
@@ -35,19 +36,35 @@ function patchHome(serverAPI: ServerAPI) {
                   .children[0].props.children.props.children.type,
                 'type',
                 (_3: Record<string, unknown>[], ret3: ReactElement) => {
-                  // console.log('ret3', ret3.props.children[1].props.children[1])
-                  // // wrapReactType(ret3.props.children[1].props.children[1])
-                  // afterPatch(
-                  //   ret3.props.children[1].props.children[1].type,
-                  //   'type',
-                  //   (_4: Record<string, unknown>[], ret4: ReactElement) => {
-                  //     console.log('ret4', ret4)
-                  //     return ret4
-                  //   }
-                  // )
                   return ret3
                 }
               )
+              // wrapReactClass(
+              //   ret2.props.children.props.children.props.children.props
+              //     .children[0].props.children
+              // )
+              // wrapReactType(
+              //   ret2.props.children.props.children.props.children.props
+              //     .children[0]
+              // )
+              // // afterPatch(
+              //   ret2.props.children.props.children.props.children.props
+              //     .children[0].props.children.props.children.type,
+              //   'type',
+              //   (_3: Record<string, unknown>[], ret3: ReactElement) => {
+              //     // console.log('ret3', ret3.props.children[1].props.children[1])
+              //     // // wrapReactType(ret3.props.children[1].props.children[1])
+              //     // afterPatch(
+              //     //   ret3.props.children[1].props.children[1].type,
+              //     //   'type',
+              //     //   (_4: Record<string, unknown>[], ret4: ReactElement) => {
+              //     //     console.log('ret4', ret4)
+              //     //     return ret4
+              //     //   }
+              //     // )
+              //     return ret3
+              //   }
+              // )
               return ret2
             }
           )
