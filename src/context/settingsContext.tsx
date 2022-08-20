@@ -1,4 +1,6 @@
 import * as React from 'react'
+
+const LOCAL_STORAGE_KEY = 'protondb-badges-settings'
 type State = {
   size: 'regular' | 'small' | 'minimalist'
   position: 'tl' | 'tr' | 'bl' | 'br'
@@ -7,7 +9,7 @@ type State = {
 type Action =
   | { type: 'set-size'; value: State['size'] }
   | { type: 'set-position'; value: State['position'] }
-  | { type: 'set-settings'; value: State }
+  | { type: 'load-settings'; value: State }
 type Dispatch = (action: Action) => void
 
 type SettingsProviderProps = { children: React.ReactNode }
@@ -21,12 +23,16 @@ const defaultSettings = { size: 'regular', position: 'tl' } as const
 function settingsReducer(state: State, action: Action) {
   switch (action.type) {
     case 'set-size': {
-      return { ...state, size: action.value }
+      const newState = { ...state, size: action.value }
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newState))
+      return newState
     }
     case 'set-position': {
-      return { ...state, position: action.value }
+      const newState = { ...state, position: action.value }
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newState))
+      return newState
     }
-    case 'set-settings': {
+    case 'load-settings': {
       return action.value
     }
   }
@@ -36,23 +42,22 @@ function SettingsProvider({ children }: SettingsProviderProps) {
   const [state, dispatch] = React.useReducer(settingsReducer, defaultSettings)
   React.useEffect(() => {
     async function getSettings() {
-      SteamClient.Storage.GetJSON('protondb-badges-settings')
-        .then((result) => {
-          const storedSettings = JSON.parse(result)
-          dispatch({
-            type: 'set-settings',
-            value: {
-              size: storedSettings?.size || defaultSettings.size,
-              position: storedSettings.position || defaultSettings.position
-            }
-          })
+      const settingsString = localStorage.getItem(LOCAL_STORAGE_KEY)
+      if (!settingsString) {
+        dispatch({
+          type: 'load-settings',
+          value: defaultSettings
         })
-        .catch(() => {
-          dispatch({
-            type: 'set-settings',
-            value: defaultSettings
-          })
-        })
+        return
+      }
+      const storedSettings = JSON.parse(settingsString)
+      dispatch({
+        type: 'load-settings',
+        value: {
+          size: storedSettings?.size || defaultSettings.size,
+          position: storedSettings.position || defaultSettings.position
+        }
+      })
     }
     getSettings()
   }, [])
