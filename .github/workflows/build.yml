@@ -58,4 +58,3 @@ jobs:
               uses: ncipollo/release-action@v1
               with:
                   artifacts: 'protondb-decky.zip,protondb-decky.tar.gz'
-                  bodyFile: 'release.md'
