@@ -23,18 +23,21 @@ const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
       () => false
     )
     const [tier, linuxSupport] = await Promise.all([tierPromise, linuxPromise])
-    cacheDispatch({
-      type: 'update-cache',
-      value: {
-        appId: appId as string,
-        data: {
-          tier: tier,
-          linuxSupport,
-          lastUpdated: new Date().toISOString()
+    if (tier?.length) {
+      cacheDispatch({
+        type: 'update-cache',
+        value: {
+          appId: appId as string,
+          data: {
+            tier: tier,
+            linuxSupport,
+            lastUpdated: new Date().toISOString()
+          }
         }
-      }
-    })
-    setProtonDBTier(tier)
+      })
+      setProtonDBTier(tier)
+    }
+    setLinuxSupport(linuxSupport)
   }
 
   useEffect(() => {
@@ -49,6 +52,7 @@ const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
       if (ignore) {
         return
       }
+      if (!tier?.length) return
       setProtonDBTier(tier)
     }
     if (appId?.length && !cacheLoading) {
