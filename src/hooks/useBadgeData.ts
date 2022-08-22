@@ -1,49 +1,10 @@
 import { ServerAPI } from 'decky-frontend-lib'
 import { useEffect, useState } from 'react'
-import BadgeStyle from '../../types/BadgeStyle'
+
 import ProtonDBTier from '../../types/ProtonDBTier'
 import { getLinuxInfo, getProtonDBInfo } from '../actions/protondb'
 import { useProtonDBCache } from '../context/protobDbCacheContext'
 import { isOutdated } from '../lib/time'
-
-const tiers: { [tier: string]: BadgeStyle } = {
-  pending: {
-    key: 'pending',
-    label: 'PENDING',
-    backgroundColor: 'rgb(68, 68, 68)',
-    textColor: 'white'
-  },
-  borked: {
-    key: 'borked',
-    label: 'BORKED',
-    backgroundColor: 'red',
-    textColor: 'black'
-  },
-  bronze: {
-    key: 'bronze',
-    label: 'BRONZE',
-    backgroundColor: 'rgb(205, 127, 50)',
-    textColor: 'black'
-  },
-  silver: {
-    key: 'silver',
-    label: 'SILVER',
-    backgroundColor: 'rgb(166, 166, 166)',
-    textColor: 'black'
-  },
-  gold: {
-    key: 'gold',
-    label: 'GOLD',
-    backgroundColor: 'rgb(207, 181, 59)',
-    textColor: 'black'
-  },
-  platinum: {
-    key: 'platinum',
-    label: 'PLATINUM',
-    backgroundColor: 'rgb(180, 199, 220)',
-    textColor: 'black'
-  }
-}
 
 const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
   const {
@@ -137,15 +98,7 @@ const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
     }
   }, [protonDBTier, linuxSupport])
 
-  let tier = undefined
-  if (protonDBTier && tiers[protonDBTier]) {
-    if (tiers[protonDBTier]) {
-      tier = tiers[protonDBTier]
-    } else {
-      tier = tiers.pending
-    }
-  }
-  return { protonDBTier: tier, linuxSupport, refresh }
+  return { protonDBTier: protonDBTier, linuxSupport, refresh }
 }
 
 export default useBadgeData
