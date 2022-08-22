@@ -1,0 +1,62 @@
+name: Build and Release ProtonDB Badges
+
+on:
+    push:
+        tags:
+            - 'v*'
+    pull_request:
+        branches: ['main']
+
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Setup Node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: '18.3'
+
+            - name: Install Dependencies
+              run: npm install
+
+            - name: build
+              run: npm run build
+
+            - name: copy files into build
+              run: |
+                  cp plugin.json ./dist/
+                  mkdir ./dist/dist
+                  mv ./dist/index.js ./dist/dist/
+            - name: Upload package
+              uses: actions/upload-artifact@v2
+              with:
+                  name: protondb-decky
+                  path: |
+                      ./dist/*
+    release:
+        needs: build
+        if: startsWith(github.ref, 'refs/tags/v')
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - uses: actions/download-artifact@v3
+              with:
+                  name: protondb-decky
+                  path: protondb-decky
+
+            - name: zip/tar release
+              run: |
+                  zip -r protondb-decky.zip protondb-decky/*
+                  tar -czvf protondb-decky.tar.gz protondb-decky
+            - name: Create a release
+              uses: ncipollo/release-action@v1
+              with:
+                  artifacts: 'protondb-decky.zip,protondb-decky.tar.gz'
+                  bodyFile: 'release.md'
+                  token: ${{ secrets.GITHUB_TOKEN }}
