@@ -5,6 +5,6 @@
   "publish": {
     "tags": ["protondb"],
     "description": "Display tappable ProtonDB badges on your game pages",
-    "image": "https://raw.githubusercontent.com/OMGDuke/protondb-decky/main/assets/screenshot.jpg"
+    "image": "https://raw.githubusercontent.com/OMGDuke/protondb-decky/main/assets/publish_image.png"
   }
 }
