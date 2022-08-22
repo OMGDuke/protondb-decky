@@ -59,4 +59,3 @@ jobs:
               with:
                   artifacts: 'protondb-decky.zip,protondb-decky.tar.gz'
                   bodyFile: 'release.md'
-                  token: ${{ secrets.GITHUB_TOKEN }}
