@@ -76,7 +76,7 @@ export default function Index() {
           <DeckPanelSectionRow>
             <ToggleField
               label="Expand Label on hover"
-              description="When using Minimalist mode, enabling this will display the badge text on focus"
+              description="Minimalist Only. Display badge text on focus"
               checked={settingsState.labelOnHover}
               onChange={(newVal: boolean) => {
                 settingsDispatch({
