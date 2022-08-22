@@ -4,7 +4,8 @@ import {
   DropdownItem,
   PanelSection,
   PanelSectionProps,
-  PanelSectionRow
+  PanelSectionRow,
+  ToggleField
 } from 'decky-frontend-lib'
 import React, { FC, ReactNode } from 'react'
 import { useProtonDBCache } from '../../context/protobDbCacheContext'
@@ -71,6 +72,23 @@ export default function Index() {
             }}
           />
         </DeckPanelSectionRow>
+        {settingsState.size === 'minimalist' ? (
+          <DeckPanelSectionRow>
+            <ToggleField
+              label="Expand Label on hover"
+              description="Minimalist Only. Display badge text on focus"
+              checked={settingsState.labelOnHover}
+              onChange={(newVal: boolean) => {
+                settingsDispatch({
+                  type: 'set-label-on-hover',
+                  value: newVal
+                })
+              }}
+            />
+          </DeckPanelSectionRow>
+        ) : (
+          ''
+        )}
         <DeckPanelSectionRow>
           <DropdownItem
             label="Badge Position"
