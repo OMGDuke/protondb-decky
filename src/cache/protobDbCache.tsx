@@ -31,6 +31,5 @@ export function clearCache(appId?: string) {
 
 export async function getCache(appId: string): Promise<ProtonDBCache | null> {
   const data = await localforage.getItem<ProtonDBCache>(appId)
-  console.log(data)
   return data
 }
