@@ -117,7 +117,7 @@ export default function Index() {
         <DeckPanelSectionRow>
           <DeckButtonItem
             label="Clear the cache to force refresh all ProtonDB badges"
-            bottomSeparator={false}
+            bottomSeparator="none"
             layout="below"
             onClick={() => clearCache()}
           >
