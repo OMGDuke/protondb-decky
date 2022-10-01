@@ -1,4 +1,4 @@
-import { Button, ButtonProps, Router, ServerAPI } from 'decky-frontend-lib'
+import { Router, ServerAPI } from 'decky-frontend-lib'
 import { ReactElement, FC, CSSProperties, ReactNode } from 'react'
 import { FaReact } from 'react-icons/fa'
 import { IoLogoTux } from 'react-icons/io'
@@ -6,14 +6,15 @@ import { useSettings } from '../../context/settingsContext'
 
 import useAppId from '../../hooks/useAppId'
 import useBadgeData from '../../hooks/useBadgeData'
+import { Button, ButtonProps } from '../button'
 
 import './protonMedal.css'
 
 type ExtendedButtonProps = ButtonProps & {
   children: ReactNode
-
   type: 'button'
   style: CSSProperties
+  className: string
 }
 
 const DeckButton = Button as FC<ExtendedButtonProps>
