@@ -8,7 +8,7 @@ import {
   ToggleField
 } from 'decky-frontend-lib'
 import React, { FC, ReactNode } from 'react'
-import { useProtonDBCache } from '../../context/protobDbCacheContext'
+import { clearCache } from '../../cache/protobDbCache'
 import { useSettings } from '../../context/settingsContext'
 
 type ExtendedPanelSectionProps = PanelSectionProps & {
@@ -45,7 +45,6 @@ const positionOptions = [
 
 export default function Index() {
   const { state: settingsState, dispatch: settingsDispatch } = useSettings()
-  const { dispatch: cacheDispatch } = useProtonDBCache()
   return (
     <div>
       <DeckPanelSection title="Settings">
@@ -120,9 +119,7 @@ export default function Index() {
             label="Clear the cache to force refresh all ProtonDB badges"
             bottomSeparator={false}
             layout="below"
-            onClick={() => {
-              cacheDispatch({ type: 'clear-cache' })
-            }}
+            onClick={() => clearCache()}
           >
             Clear ProtonDB Cache
           </DeckButtonItem>
