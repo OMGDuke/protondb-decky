@@ -11,6 +11,8 @@
   align-items: center;
   width: max-content;
   height: max-content;
+  border-radius: 0;
+  color: black;
 }
 
 .protondb-decky-indicator.gpfocus, .protondb-decky-indicator:hover {

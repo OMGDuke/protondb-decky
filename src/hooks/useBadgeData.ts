@@ -3,15 +3,10 @@ import { useEffect, useState } from 'react'
 
 import ProtonDBTier from '../../types/ProtonDBTier'
 import { getLinuxInfo, getProtonDBInfo } from '../actions/protondb'
-import { useProtonDBCache } from '../context/protobDbCacheContext'
+import { getCache, updateCache } from '../cache/protobDbCache'
 import { isOutdated } from '../lib/time'
 
 const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
-  const {
-    state: cacheState,
-    dispatch: cacheDispatch,
-    loading: cacheLoading
-  } = useProtonDBCache()
   const [protonDBTier, setProtonDBTier] = useState<ProtonDBTier>()
   const [linuxSupport, setLinuxSupport] = useState<boolean>(false)
 
@@ -23,17 +18,11 @@ const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
       () => false
     )
     const [tier, linuxSupport] = await Promise.all([tierPromise, linuxPromise])
-    if (tier?.length) {
-      cacheDispatch({
-        type: 'update-cache',
-        value: {
-          appId: appId as string,
-          data: {
-            tier: tier,
-            linuxSupport,
-            lastUpdated: new Date().toISOString()
-          }
-        }
+    if (tier?.length && appId?.length) {
+      updateCache(appId, {
+        tier: tier,
+        linuxSupport,
+        lastUpdated: new Date().toISOString()
       })
       setProtonDBTier(tier)
     }
@@ -44,9 +33,10 @@ const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
     // Proton DB Data
     let ignore = false
     async function getData() {
-      if (cacheState?.[appId as string]?.tier) {
-        setProtonDBTier(cacheState?.[appId as string].tier)
-        if (!isOutdated(cacheState?.[appId as string]?.lastUpdated)) return
+      const cache = await getCache(appId as string)
+      if (cache?.tier) {
+        setProtonDBTier(cache.tier)
+        if (!isOutdated(cache?.lastUpdated)) return
       }
       const tier = await getProtonDBInfo(serverAPI, appId as string)
       if (ignore) {
@@ -55,21 +45,22 @@ const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
       if (!tier?.length) return
       setProtonDBTier(tier)
     }
-    if (appId?.length && !cacheLoading) {
+    if (appId?.length) {
       getData()
     }
     return () => {
       ignore = true
     }
-  }, [appId, cacheLoading])
+  }, [appId])
 
   useEffect(() => {
     // Linux Data
     let ignore = false
     async function getData() {
-      if (cacheState?.[appId as string]?.linuxSupport !== undefined) {
-        setLinuxSupport(cacheState?.[appId as string]?.linuxSupport)
-        if (!isOutdated(cacheState?.[appId as string]?.lastUpdated)) return
+      const cache = await getCache(appId as string)
+      if (typeof cache?.linuxSupport !== 'undefined') {
+        setLinuxSupport(cache?.linuxSupport)
+        if (!isOutdated(cache?.lastUpdated)) return
       }
       const linuxSupport = await getLinuxInfo(serverAPI, appId as string)
       if (ignore) {
@@ -88,21 +79,19 @@ const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
 
   useEffect(() => {
     if (protonDBTier) {
-      cacheDispatch({
-        type: 'update-cache',
-        value: {
-          appId: appId as string,
-          data: {
-            tier: protonDBTier,
-            linuxSupport,
-            lastUpdated: new Date().toISOString()
-          }
-        }
+      updateCache(appId as string, {
+        tier: protonDBTier,
+        linuxSupport,
+        lastUpdated: new Date().toISOString()
       })
     }
   }, [protonDBTier, linuxSupport])
 
-  return { protonDBTier: protonDBTier, linuxSupport, refresh }
+  return {
+    protonDBTier,
+    linuxSupport,
+    refresh
+  }
 }
 
 export default useBadgeData
