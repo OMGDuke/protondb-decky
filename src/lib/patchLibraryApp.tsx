@@ -1,4 +1,9 @@
-import { afterPatch, ServerAPI, wrapReactType } from 'decky-frontend-lib'
+import {
+  afterPatch,
+  ServerAPI,
+  wrapReactClass,
+  wrapReactType
+} from 'decky-frontend-lib'
 import { ReactElement } from 'react'
 import ProtonMedal from '../components/protonMedal'
 import { SettingsProvider } from '../context/settingsContext'
@@ -16,24 +21,36 @@ function patchLibraryApp(serverAPI: ServerAPI) {
             ret.props.children.type,
             'type',
             (_2: Record<string, unknown>[], ret2: ReactElement) => {
-              const alreadySpliced = Boolean(
-                ret2.props?.children?.[1]?.props.children.props.children.find(
-                  (child: ReactElement) =>
-                    child?.props?.className === 'protondb-decky-indicator'
-                )
+              wrapReactClass(
+                ret2.props.children?.[1]?.props.children.props.children[0]
               )
-              if (!alreadySpliced) {
-                ret2.props.children?.[1]?.props.children.props.children.splice(
-                  1,
-                  0,
-                  <SettingsProvider>
-                    <ProtonMedal
-                      serverAPI={serverAPI}
-                      className="protondb-decky-indicator"
-                    />
-                  </SettingsProvider>
-                )
-              }
+              afterPatch(
+                ret2.props.children?.[1]?.props.children.props.children[0].type
+                  .prototype,
+                'render',
+                (_3: Record<string, unknown>[], ret3: ReactElement) => {
+                  const alreadySpliced = Boolean(
+                    ret3.props.children[2].props.children.find(
+                      (child: ReactElement) =>
+                        child?.props?.className === 'protondb-decky-indicator'
+                    )
+                  )
+                  if (!alreadySpliced) {
+                    ret3.props.children[2].props.children.splice(
+                      1,
+                      0,
+                      <SettingsProvider>
+                        <ProtonMedal
+                          serverAPI={serverAPI}
+                          className="protondb-decky-indicator"
+                        />
+                      </SettingsProvider>
+                    )
+                  }
+                  console.log(3, ret3.props.children[2].props.children)
+                  return ret3
+                }
+              )
               return ret2
             }
           )
