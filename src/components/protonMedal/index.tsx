@@ -2,13 +2,15 @@ import { Router, ServerAPI } from 'decky-frontend-lib'
 import { ReactElement, FC, CSSProperties, ReactNode } from 'react'
 import { FaReact } from 'react-icons/fa'
 import { IoLogoTux } from 'react-icons/io'
+
 import { useSettings } from '../../context/settingsContext'
 
 import useAppId from '../../hooks/useAppId'
 import useBadgeData from '../../hooks/useBadgeData'
+
 import { Button, ButtonProps } from '../button'
 
-import './protonMedal.css'
+import style from './style'
 
 type ExtendedButtonProps = ButtonProps & {
   children: ReactNode
@@ -51,34 +53,37 @@ export default function ProtonMedal({
     : ''
 
   return (
-    <DeckButton
-      className={`${className} ${tierClass} ${nativeClass} ${sizeClass} ${labelOnHoverClass}`}
-      type="button"
-      onClick={async () => {
-        refresh()
-        Router.NavigateToExternalWeb(`https://www.protondb.com/app/${appId}`)
-      }}
-      style={{
-        ...positonSettings[state.position]
-      }}
-    >
-      <div>
-        {linuxSupport ? (
-          <IoLogoTux
-            size={state.size !== 'regular' ? 20 : 28}
-            style={{ marginRight: 10 }}
-          />
-        ) : (
-          <></>
-        )}
-        {/* The ProtonDB logo has a distracting background, so React's logo is being used as a close substitute */}
-        <FaReact size={state.size !== 'regular' ? 20 : 28} />
-      </div>
-      <span>
-        {state.size !== 'regular'
-          ? protonDBTier?.toUpperCase().slice(0, 4)
-          : protonDBTier?.toUpperCase()}
-      </span>
-    </DeckButton>
+    <>
+      {style}
+      <DeckButton
+        className={`${className} ${tierClass} ${nativeClass} ${sizeClass} ${labelOnHoverClass}`}
+        type="button"
+        onClick={async () => {
+          refresh()
+          Router.NavigateToExternalWeb(`https://www.protondb.com/app/${appId}`)
+        }}
+        style={{
+          ...positonSettings[state.position]
+        }}
+      >
+        <div>
+          {linuxSupport ? (
+            <IoLogoTux
+              size={state.size !== 'regular' ? 20 : 28}
+              style={{ marginRight: 10 }}
+            />
+          ) : (
+            <></>
+          )}
+          {/* The ProtonDB logo has a distracting background, so React's logo is being used as a close substitute */}
+          <FaReact size={state.size !== 'regular' ? 20 : 28} />
+        </div>
+        <span>
+          {state.size !== 'regular'
+            ? protonDBTier?.toUpperCase().slice(0, 4)
+            : protonDBTier?.toUpperCase()}
+        </span>
+      </DeckButton>
+    </>
   )
 }
