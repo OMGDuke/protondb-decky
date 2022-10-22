@@ -3,10 +3,15 @@ import { FaReact } from 'react-icons/fa'
 
 import Settings from './components/settings'
 import { SettingsProvider } from './context/settingsContext'
-import patchLibraryApp from './lib/patchLibraryApp'
+import { getStorePage } from './lib/storeInjection'
+import patchLibraryApp from './routePatching/patchLibraryApp'
+import { patchStore } from './routePatching/patchStore'
 
 export default definePlugin((serverAPI: ServerAPI) => {
-  const libraryPatch = patchLibraryApp(serverAPI)
+  const unpatchLibrary = patchLibraryApp(serverAPI)
+  // const unpatchStore = patchStore(serverAPI)
+  getStorePage(serverAPI)
+
   return {
     title: <div className={staticClasses.Title}>ProtonDB Badges</div>,
     icon: <FaReact />,
@@ -16,7 +21,8 @@ export default definePlugin((serverAPI: ServerAPI) => {
       </SettingsProvider>
     ),
     onDismount() {
-      serverAPI.routerHook.removePatch('/library/app/:appid', libraryPatch)
+      unpatchLibrary()
+      // unpatchStore()
     }
   }
 })

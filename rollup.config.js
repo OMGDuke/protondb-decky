@@ -30,6 +30,7 @@ export default defineConfig({
   context: 'window',
   external: ['react', 'react-dom'],
   output: {
+    inlineDynamicImports: true,
     file: 'dist/index.js',
     globals: {
       react: 'SP_REACT',

@@ -20,5 +20,9 @@ Place the badge around different corners of the game page header.
 
 This plugin requires [Decky Loader](https://github.com/SteamDeckHomebrew/decky-loader). ProtonDB Badges is available on the store.
 
-## PluginLoader Discord [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/ZU74G2NJzk)
+## PluginLoader Discord
+[![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/ZU74G2NJzk)
 
+## Coverage
+- [Gaming On Linux](https://www.youtube.com/watch?v=YQhvNiI3hKI)
+- [PCGamesN](https://www.pcgamesn.com/steam-deck/compatible-games-protondb-plugin)

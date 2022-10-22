@@ -3,9 +3,9 @@ import { ReactElement } from 'react'
 import ProtonMedal from '../components/protonMedal'
 import { SettingsProvider } from '../context/settingsContext'
 
-function patchLibraryApp(serverAPI: ServerAPI) {
+function runPatch(serverAPI: ServerAPI, route: string) {
   return serverAPI.routerHook.addPatch(
-    '/library/app/:appid',
+    route,
     (props: { path: string; children: ReactElement }) => {
       afterPatch(
         props.children.props,
@@ -45,4 +45,10 @@ function patchLibraryApp(serverAPI: ServerAPI) {
   )
 }
 
-export default patchLibraryApp
+export default function patchLibraryApp(serverAPI: ServerAPI): () => void {
+  const route = '/library/app/:appid'
+  const libraryPatch = runPatch(serverAPI, route)
+  return () => {
+    serverAPI.routerHook.removePatch(route, libraryPatch)
+  }
+}
