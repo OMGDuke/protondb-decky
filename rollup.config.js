@@ -5,7 +5,6 @@ import replace from '@rollup/plugin-replace'
 import typescript from '@rollup/plugin-typescript'
 import { defineConfig } from 'rollup'
 import importAssets from 'rollup-plugin-import-assets'
-import styles from 'rollup-plugin-styles'
 
 import { name } from './plugin.json'
 
@@ -24,8 +23,7 @@ export default defineConfig({
     }),
     importAssets({
       publicPath: `http://127.0.0.1:1337/plugins/${name}/`
-    }),
-    styles()
+    })
   ],
   context: 'window',
   external: ['react', 'react-dom'],
