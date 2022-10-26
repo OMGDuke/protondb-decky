@@ -6,12 +6,14 @@ specifiers:
   '@rollup/plugin-node-resolve': ^14.1.0
   '@rollup/plugin-replace': ^4.0.0
   '@rollup/plugin-typescript': ^9.0.2
+  '@types/chrome-remote-interface': ^0.31.4
   '@types/react': 18.0.21
   '@types/react-dom': ^18.0.6
   '@types/webpack': ^5.28.0
   '@typescript-eslint/eslint-plugin': ^5.40.1
   '@typescript-eslint/parser': ^5.40.1
-  decky-frontend-lib: ^3.6.1
+  decky-frontend-lib: ^3.7.2
+  devtools-protocol: ^0.0.1061995
   eslint: ^8.26.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-prettier: ^4.2.1
@@ -27,7 +29,8 @@ specifiers:
   typescript: ^4.8.4
 
 dependencies:
-  decky-frontend-lib: 3.6.1
+  decky-frontend-lib: 3.7.2
+  devtools-protocol: 0.0.1061995
   localforage: 1.10.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -39,6 +42,7 @@ devDependencies:
   '@rollup/plugin-node-resolve': 14.1.0_rollup@2.79.1
   '@rollup/plugin-replace': 4.0.0_rollup@2.79.1
   '@rollup/plugin-typescript': 9.0.2_hafrwlgfjmvsm7253l3bfjzhnq
+  '@types/chrome-remote-interface': 0.31.4
   '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
   '@types/webpack': 5.28.0
@@ -246,6 +250,12 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 2.79.1
+    dev: true
+
+  /@types/chrome-remote-interface/0.31.4:
+    resolution: {integrity: sha512-DJHDwimNqCgAyG5gFmr6Y265pe967u3mnkeMVc0iHuf04PHzTgFypA2AjxSvtkM/pogqWxvfRYXy9Wa5Dj0U1g==}
+    dependencies:
+      devtools-protocol: 0.0.927104
     dev: true
 
   /@types/eslint-scope/3.7.3:
@@ -744,8 +754,8 @@ packages:
       ms: 2.1.2
     dev: true
 
-  /decky-frontend-lib/3.6.1:
-    resolution: {integrity: sha512-NBlltn4EktqFgD1fj2AU0ccJJNMNgcqCnmhYd34Z5xR7ypGNT2oSqfSvFIlzU4WbDL9RyrcHSJlSMdYk6n4NXA==}
+  /decky-frontend-lib/3.7.2:
+    resolution: {integrity: sha512-09ae4qNVxI5cBy7KelsgzizD/ejWO0fP6LzuJjedprBpct3rqVPJR53RMeA1e3a0Tfptw/9N4QMP539AA9IBLw==}
     dependencies:
       minimist: 1.2.6
     dev: false
@@ -757,6 +767,14 @@ packages:
   /deepmerge/4.2.2:
     resolution: {integrity: sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /devtools-protocol/0.0.1061995:
+    resolution: {integrity: sha512-pKZZWTjWa/IF4ENCg6GN8bu/AxSZgdhjSa26uc23wz38Blt2Tnm9icOPcSG3Cht55rMq35in1w3rWVPcZ60ArA==}
+    dev: false
+
+  /devtools-protocol/0.0.927104:
+    resolution: {integrity: sha512-5jfffjSuTOv0Lz53wTNNTcCUV8rv7d82AhYcapj28bC2B5tDxEZzVb7k51cNxZP2KHw24QE+sW7ZuSeD9NfMpA==}
     dev: true
 
   /dir-glob/3.0.1:

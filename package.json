@@ -30,6 +30,7 @@
     "@rollup/plugin-node-resolve": "^14.1.0",
     "@rollup/plugin-replace": "^4.0.0",
     "@rollup/plugin-typescript": "^9.0.2",
+    "@types/chrome-remote-interface": "^0.31.4",
     "@types/react": "18.0.21",
     "@types/react-dom": "^18.0.6",
     "@types/webpack": "^5.28.0",
@@ -46,7 +47,8 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "decky-frontend-lib": "^3.6.1",
+    "decky-frontend-lib": "^3.7.2",
+    "devtools-protocol": "^0.0.1061995",
     "localforage": "^1.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

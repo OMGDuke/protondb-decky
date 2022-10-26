@@ -1,4 +1,5 @@
 import { findModuleChild, ServerAPI } from 'decky-frontend-lib'
+
 import { getProtonDBInfo } from '../actions/protondb'
 import ProtonDBTier from '../../types/ProtonDBTier'
 import { medalColours } from '../lib/constants'
@@ -31,7 +32,6 @@ const History: {
 })
 
 function injectIntoStore(
-  tab: Tab,
   appId: string,
   protonDBTier: ProtonDBTier | undefined
 ) {
@@ -70,28 +70,90 @@ function injectIntoStore(
   return code
 }
 
+/**
+ * Stolen from puppeteer util.js/ts
+ * @internal
+ */
+export const evaluationString = (
+  fun: string | (() => void),
+  ...args: unknown[]
+): string => {
+  if (typeof fun === 'string') {
+    if (args.length !== 0)
+      throw new Error('Cannot evaluate a string with arguments')
+    return fun
+  }
+  function serializeArgument(arg: unknown) {
+    if (Object.is(arg, undefined)) {
+      return 'undefined'
+    }
+    return JSON.stringify(arg)
+  }
+  return `(${fun})(${args.map(serializeArgument).join(',')})`
+}
+
 export function patchStore(serverApi: ServerAPI): () => void {
   const unlisten = History.listen(async (info) => {
     try {
+      // Start the process if we navigate to the steam web browser
       if (info.pathname === '/steamweb') {
+        // get the currently running tabs
         const response = await serverApi.fetchNoCors<{ body: string }>(
           'http://localhost:8080/json'
         )
+
         let tabs: Tab[] = []
         if (response.success) tabs = JSON.parse(response.result.body) || []
+        // Find the tab the store is running on
         const tab = tabs.find((t) =>
-          t.url.includes('https://store.steampowered.com/app/')
+          t.url.includes('https://store.steampowered.com')
         )
-        if (tab?.title) {
-          const appId = tab.url.match(/\/app\/([\d]+)\/?/)?.[1]
-          if (appId) {
-            const tier = await getProtonDBInfo(serverApi, appId as string)
-            serverApi.executeInTab(
-              tab.title,
-              true,
-              injectIntoStore(tab, appId, tier)
-            )
+        if (tab?.webSocketDebuggerUrl) {
+          // Connect to the tab
+          const ws = await new WebSocket(tab.webSocketDebuggerUrl)
+
+          ws.onmessage = async ({ data }) => {
+            const parsedData = JSON.parse(data)
+            console.log(parsedData)
           }
+          ws.addEventListener('open', async (event) => {
+            const injectedFunction = () => {
+              const yourFunction = () => {
+                console.log(
+                  '######################NEW DOCUMENT LOADED####################'
+                )
+              }
+              console.log(document.readyState)
+              if (document.readyState === 'loading') {
+                addEventListener('DOMContentLoaded', yourFunction)
+              } else {
+                yourFunction()
+              }
+            }
+            console.log(evaluationString(injectedFunction))
+            await ws.send(
+              JSON.stringify({
+                id: 1337,
+                method: 'Page.addScriptToEvaluateOnNewDocument',
+                params: {
+                  source: evaluationString(injectedFunction)
+                }
+              })
+            )
+          })
+
+          // const appId = tab.url.match(/\/app\/([\d]+)\/?/)?.[1]
+          // if (appId) {
+          //   const tier = await getProtonDBInfo(serverApi, appId as string)
+          //   .send('Page.addScriptToEvaluateOnNewDocument', {
+          //     source: injectIntoStore(tab, appId, tier)
+          //   })
+          //   serverApi.executeInTab(
+          //     tab.title,
+          //     true,
+          //     injectIntoStore(tab, appId, tier)
+          //   )
+          // }
         }
       }
     } catch (err) {
