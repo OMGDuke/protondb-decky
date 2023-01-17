@@ -1,4 +1,4 @@
-import { Router, ServerAPI } from 'decky-frontend-lib'
+import { Navigation, ServerAPI } from 'decky-frontend-lib'
 import { ReactElement, FC, CSSProperties, ReactNode } from 'react'
 import { FaReact } from 'react-icons/fa'
 import { IoLogoTux } from 'react-icons/io'
@@ -60,7 +60,7 @@ export default function ProtonMedal({
         type="button"
         onClick={async () => {
           refresh()
-          Router.NavigateToExternalWeb(`https://www.protondb.com/app/${appId}`)
+          Navigation.NavigateToExternalWeb(`https://www.protondb.com/app/${appId}`)
         }}
         style={{
           ...positonSettings[state.position]
