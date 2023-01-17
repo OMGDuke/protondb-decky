@@ -46,7 +46,7 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "decky-frontend-lib": "^3.6.1",
+    "decky-frontend-lib": "^3.18.10",
     "localforage": "^1.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

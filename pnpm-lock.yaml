@@ -11,7 +11,7 @@ specifiers:
   '@types/webpack': ^5.28.0
   '@typescript-eslint/eslint-plugin': ^5.40.1
   '@typescript-eslint/parser': ^5.40.1
-  decky-frontend-lib: ^3.6.1
+  decky-frontend-lib: ^3.18.10
   eslint: ^8.26.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-prettier: ^4.2.1
@@ -27,7 +27,7 @@ specifiers:
   typescript: ^4.8.4
 
 dependencies:
-  decky-frontend-lib: 3.6.1
+  decky-frontend-lib: 3.18.10
   localforage: 1.10.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -744,10 +744,8 @@ packages:
       ms: 2.1.2
     dev: true
 
-  /decky-frontend-lib/3.6.1:
-    resolution: {integrity: sha512-NBlltn4EktqFgD1fj2AU0ccJJNMNgcqCnmhYd34Z5xR7ypGNT2oSqfSvFIlzU4WbDL9RyrcHSJlSMdYk6n4NXA==}
-    dependencies:
-      minimist: 1.2.6
+  /decky-frontend-lib/3.18.10:
+    resolution: {integrity: sha512-2mgbA3sSkuwQR/FnmhXVrcW6LyTS95IuL6muJAmQCruhBvXapDtjk1TcgxqMZxFZwGD1IPnemPYxHZll6IgnZw==}
     dev: false
 
   /deep-is/0.1.4:
@@ -1331,6 +1329,7 @@ packages:
 
   /minimist/1.2.6:
     resolution: {integrity: sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==}
+    dev: true
 
   /ms/2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
