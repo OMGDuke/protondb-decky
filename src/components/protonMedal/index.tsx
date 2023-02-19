@@ -15,7 +15,7 @@ import style from './style'
 type ExtendedButtonProps = ButtonProps & {
   children: ReactNode
   type: 'button'
-  style: CSSProperties
+  style?: CSSProperties
   className: string
 }
 
@@ -29,11 +29,9 @@ const positonSettings = {
 }
 
 export default function ProtonMedal({
-  serverAPI,
-  className
+  serverAPI
 }: {
   serverAPI: ServerAPI
-  className: string
 }): ReactElement {
   const appId = useAppId(serverAPI)
   const { protonDBTier, linuxSupport, refresh } = useBadgeData(serverAPI, appId)
@@ -53,17 +51,19 @@ export default function ProtonMedal({
     : ''
 
   return (
-    <>
+    <div
+      className="protondb-decky-indicator-container"
+      style={{ position: 'absolute', ...positonSettings[state.position] }}
+    >
       {style}
       <DeckButton
-        className={`${className} ${tierClass} ${nativeClass} ${sizeClass} ${labelOnHoverClass}`}
+        className={`protondb-decky-indicator ${tierClass} ${nativeClass} ${sizeClass} ${labelOnHoverClass}`}
         type="button"
         onClick={async () => {
           refresh()
-          Navigation.NavigateToExternalWeb(`https://www.protondb.com/app/${appId}`)
-        }}
-        style={{
-          ...positonSettings[state.position]
+          Navigation.NavigateToExternalWeb(
+            `https://www.protondb.com/app/${appId}`
+          )
         }}
       >
         <div>
@@ -84,6 +84,6 @@ export default function ProtonMedal({
             : protonDBTier?.toUpperCase()}
         </span>
       </DeckButton>
-    </>
+    </div>
   )
 }
