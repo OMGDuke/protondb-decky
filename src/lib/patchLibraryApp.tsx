@@ -32,7 +32,7 @@ function patchLibraryApp(serverAPI: ServerAPI) {
             (_2: Record<string, unknown>[], ret2?: ReactElement) => {
               const container = findInReactTree(
                 ret2,
-                (x: any) =>
+                (x: ReactElement) =>
                   Array.isArray(x?.props?.children) &&
                   x?.props?.className?.includes(
                     appDetailsClasses.InnerContainer
@@ -46,10 +46,7 @@ function patchLibraryApp(serverAPI: ServerAPI) {
                 1,
                 0,
                 <SettingsProvider>
-                  <ProtonMedal
-                    serverAPI={serverAPI}
-                    className="protondb-decky-indicator"
-                  />
+                  <ProtonMedal serverAPI={serverAPI} />
                 </SettingsProvider>
               )
 

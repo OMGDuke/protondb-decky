@@ -6,7 +6,6 @@ export default (
     }
     .protondb-decky-indicator {
     border: none;
-    position: absolute;
     z-index: 20;
     display: flex;
     align-items: center;
