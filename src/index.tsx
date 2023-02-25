@@ -3,14 +3,12 @@ import { FaReact } from 'react-icons/fa'
 
 import Settings from './components/settings'
 import { SettingsProvider } from './context/settingsContext'
-import useTranslations from './hooks/useTranslations'
 import patchLibraryApp from './lib/patchLibraryApp'
 
 export default definePlugin((serverAPI: ServerAPI) => {
-  const t = useTranslations()
   const libraryPatch = patchLibraryApp(serverAPI)
   return {
-    title: <div className={staticClasses.Title}>{t('pluginName')}</div>,
+    title: <div className={staticClasses.Title}>ProtonDB Badges</div>,
     icon: <FaReact />,
     content: (
       <SettingsProvider>

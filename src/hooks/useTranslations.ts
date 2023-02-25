@@ -1,12 +1,9 @@
 import { useState } from 'react'
-import en from '../localisation/en.json'
-
-const languages = { en }
+import languages from '../lib/translations'
 
 function getCurrentLanguage(): keyof typeof languages {
   const lang = window.LocalizationManager
     .m_rgLocalesToUse[0] as keyof typeof languages
-  console.log('LANGUAGE CODE:', lang)
   return languages[lang] ? lang : 'en'
 }
 
