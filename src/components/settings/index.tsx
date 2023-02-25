@@ -4,8 +4,7 @@ import {
   DropdownItem,
   PanelSection,
   PanelSectionProps,
-  PanelSectionRow,
-  ToggleField
+  PanelSectionRow
 } from 'decky-frontend-lib'
 import React, { FC, ReactNode } from 'react'
 import { clearCache } from '../../cache/protobDbCache'
