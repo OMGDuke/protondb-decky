@@ -16,7 +16,7 @@
     "sizeSmall": "Small",
     "tierborked": "BORKED",
     "tierbronze": "BRONZE",
-    "tiergold": "GOLD",
+    "tiergold": "OURO",
     "tierMinborked": "BORK",
     "tierMinbronze": "BRON",
     "tierMingold": "GOLD",
@@ -25,5 +25,6 @@
     "tierMinsilver": "SILV",
     "tierpending": "PENDING",
     "tierplatinum": "PLATINUM",
-    "tiersilver": "SILVER"
+    "tiersilver": "SILVER",
+    "expandOnHoverOff": "Off"
 }
