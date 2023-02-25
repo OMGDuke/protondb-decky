@@ -8,7 +8,6 @@
     "clearCacheLabel": "Clear the cache to force refresh all ProtonDB badges",
     "expandOnHover": "Expand Label on hover",
     "expandOnHoverDescription": "Minimalist Only. Display badge text on focus",
-    "pluginName": "ProtonDB Badges",
     "positionTopLeft": "Top Left",
     "positionTopRight": "Top Right",
     "settings": "Settings",
