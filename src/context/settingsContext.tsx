@@ -4,13 +4,13 @@ const LOCAL_STORAGE_KEY = 'protondb-badges-settings'
 type State = {
   size: 'regular' | 'small' | 'minimalist'
   position: 'tl' | 'tr' | 'bl' | 'br'
-  labelOnHover: 'off' | 'small' | 'regular'
+  labelTypeOnHover: 'off' | 'small' | 'regular'
 }
 
 type Action =
   | { type: 'set-size'; value: State['size'] }
   | { type: 'set-position'; value: State['position'] }
-  | { type: 'set-label-type-on-hover'; value: State['labelOnHover'] }
+  | { type: 'set-label-on-hover'; value: State['labelTypeOnHover'] }
   | { type: 'load-settings'; value: State }
 type Dispatch = (action: Action) => void
 
@@ -23,7 +23,7 @@ const SettingsStateContext = React.createContext<
 const defaultSettings = {
   size: 'regular',
   position: 'tl',
-  labelOnHover: 'off'
+  labelTypeOnHover: 'off'
 } as const
 
 function settingsReducer(state: State, action: Action) {
@@ -38,8 +38,8 @@ function settingsReducer(state: State, action: Action) {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newState))
       return newState
     }
-    case 'set-label-type-on-hover': {
-      const newState = { ...state, labelOnHover: action.value }
+    case 'set-label-on-hover': {
+      const newState = { ...state, labelTypeOnHover: action.value }
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newState))
       return newState
     }
@@ -67,8 +67,8 @@ function SettingsProvider({ children }: SettingsProviderProps) {
         value: {
           size: storedSettings?.size || defaultSettings.size,
           position: storedSettings.position || defaultSettings.position,
-          labelOnHover:
-            storedSettings.labelOnHover || defaultSettings.labelOnHover
+          labelTypeOnHover:
+            storedSettings.labelTypeOnHover || defaultSettings.labelTypeOnHover
         }
       })
     }

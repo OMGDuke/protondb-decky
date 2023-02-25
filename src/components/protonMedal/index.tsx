@@ -48,10 +48,10 @@ export default function ProtonMedal({
     state.size || 'regular'
   }` as const
 
-  const labelOnHoverClass =
-    state.labelOnHover === 'off'
+  const labelTypeOnHoverClass =
+    state.labelTypeOnHover === 'off'
       ? ''
-      : `protondb-decky-indicator-label-on-hover-${state.labelOnHover}`
+      : `protondb-decky-indicator-label-on-hover-${state.labelTypeOnHover}`
 
   return (
     <div
@@ -60,7 +60,7 @@ export default function ProtonMedal({
     >
       {style}
       <DeckButton
-        className={`protondb-decky-indicator ${tierClass} ${nativeClass} ${sizeClass} ${labelOnHoverClass}`}
+        className={`protondb-decky-indicator ${tierClass} ${nativeClass} ${sizeClass} ${labelTypeOnHoverClass}`}
         type="button"
         onClick={async () => {
           refresh()
@@ -82,7 +82,7 @@ export default function ProtonMedal({
           <FaReact size={state.size !== 'regular' ? 20 : 28} />
         </div>
         <span>
-          {state.size !== 'regular' && state.labelOnHover !== 'regular'
+          {state.size !== 'regular' && state.labelTypeOnHover !== 'regular'
             ? t(`tierMin${protonDBTier}`)
             : t(`tier${protonDBTier}`)}
         </span>

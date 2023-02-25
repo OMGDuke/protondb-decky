@@ -87,7 +87,7 @@ export default function Index() {
               }))}
               selectedOption={
                 hoverTypeOptions.find(
-                  (o) => o.value === settingsState.labelOnHover
+                  (o) => o.value === settingsState.labelTypeOnHover
                 )?.data || 0
               }
               onChange={(newVal: { data: number; label: string }) => {
@@ -95,7 +95,7 @@ export default function Index() {
                   hoverTypeOptions.find((o) => o.data === newVal.data)?.value ||
                   'off'
                 settingsDispatch({
-                  type: 'set-label-type-on-hover',
+                  type: 'set-label-on-hover',
                   value: newHoverType
                 })
               }}
