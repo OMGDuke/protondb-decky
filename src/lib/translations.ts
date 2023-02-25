@@ -1,6 +1,4 @@
-import af from '../localisation/af.json'
-import ar from '../localisation/ar.json'
-import ca from '../localisation/ca.json'
+import bg from '../localisation/bg.json'
 import cs from '../localisation/cs.json'
 import da from '../localisation/da.json'
 import de from '../localisation/de.json'
@@ -9,7 +7,6 @@ import en from '../localisation/en.json'
 import es from '../localisation/es.json'
 import fi from '../localisation/fi.json'
 import fr from '../localisation/fr.json'
-import he from '../localisation/he.json'
 import hu from '../localisation/hu.json'
 import it from '../localisation/it.json'
 import ja from '../localisation/ja.json'
@@ -20,17 +17,15 @@ import pl from '../localisation/pl.json'
 import pt from '../localisation/pt.json'
 import ro from '../localisation/ro.json'
 import ru from '../localisation/ru.json'
-import sr from '../localisation/sr.json'
 import sv from '../localisation/sv.json'
+import th from '../localisation/th.json'
 import tr from '../localisation/tr.json'
 import uk from '../localisation/uk.json'
 import vi from '../localisation/vi.json'
 import zh from '../localisation/zh.json'
 
 const languages = {
-  af,
-  ar,
-  ca,
+  bg,
   cs,
   da,
   de,
@@ -39,7 +34,6 @@ const languages = {
   es,
   fi,
   fr,
-  he,
   hu,
   it,
   ja,
@@ -50,8 +44,8 @@ const languages = {
   pt,
   ro,
   ru,
-  sr,
   sv,
+  th,
   tr,
   uk,
   vi,
