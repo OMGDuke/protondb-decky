@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import en from '../localisation/sources.json'
+import en from '../localisation/source.json'
 
 const languages = { en }
 
