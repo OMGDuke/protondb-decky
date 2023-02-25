@@ -12,8 +12,13 @@ function getCurrentLanguage(): keyof typeof languages {
 function useTranslations() {
   const [lang] = useState(getCurrentLanguage())
   return function (key: keyof (typeof languages)['en']): string {
-    const stringTranslation = languages[lang]?.[key]
-    return stringTranslation?.length ? stringTranslation : languages.en?.[key]
+    if (languages[lang]?.[key]?.length) {
+      return languages[lang]?.[key]
+    } else if (languages.en?.[key]?.length) {
+      return languages.en?.[key]
+    } else {
+      return key
+    }
   }
 }
 
