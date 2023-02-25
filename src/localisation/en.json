@@ -25,5 +25,6 @@
     "tierMinsilver": "SILV",
     "tierpending": "PENDING",
     "tierplatinum": "PLATINUM",
-    "tiersilver": "SILVER"
+    "tiersilver": "SILVER",
+    "expandOnHoverOff": "Off"
 }
