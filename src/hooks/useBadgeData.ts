@@ -18,7 +18,6 @@ const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
       () => false
     )
     const [tier, linuxSupport] = await Promise.all([tierPromise, linuxPromise])
-    console.log(tier)
     if (tier?.length && appId?.length) {
       updateCache(appId, {
         tier: tier,
