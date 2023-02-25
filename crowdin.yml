@@ -2,5 +2,5 @@ pull_request_title: Crowdin translations sync
 commit_message: New translations (%language%)
 append_commit_message: false
 files:
-  - source: /src/localisation/source.json
+  - source: /src/localisation/en.json
     translation: /src/localisation/%two_letters_code%.json
