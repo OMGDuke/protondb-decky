@@ -7,6 +7,7 @@ import { useSettings } from '../../context/settingsContext'
 
 import useAppId from '../../hooks/useAppId'
 import useBadgeData from '../../hooks/useBadgeData'
+import useTranslations from '../../hooks/useTranslations'
 
 import { Button, ButtonProps } from '../button'
 
@@ -33,6 +34,7 @@ export default function ProtonMedal({
 }: {
   serverAPI: ServerAPI
 }): ReactElement {
+  const t = useTranslations()
   const appId = useAppId(serverAPI)
   const { protonDBTier, linuxSupport, refresh } = useBadgeData(serverAPI, appId)
 
@@ -80,8 +82,8 @@ export default function ProtonMedal({
         </div>
         <span>
           {state.size !== 'regular'
-            ? protonDBTier?.toUpperCase().slice(0, 4)
-            : protonDBTier?.toUpperCase()}
+            ? t(`tierMin${protonDBTier}`)
+            : t(`tier${protonDBTier}`)}
         </span>
       </DeckButton>
     </div>
