@@ -4,8 +4,7 @@ import {
   DropdownItem,
   PanelSection,
   PanelSectionProps,
-  PanelSectionRow,
-  ToggleField
+  PanelSectionRow
 } from 'decky-frontend-lib'
 import React, { FC, ReactNode } from 'react'
 import { clearCache } from '../../cache/protobDbCache'
@@ -44,6 +43,12 @@ export default function Index() {
     { data: 0, label: t('positionTopLeft'), value: 'tl' },
     { data: 1, label: t('positionTopRight'), value: 'tr' }
   ] as const
+
+  const hoverTypeOptions = [
+    { data: 0, label: t('expandOnHoverOff'), value: 'off' },
+    { data: 1, label: t('sizeSmall'), value: 'small' },
+    { data: 2, label: t('sizeRegular'), value: 'regular' }
+  ] as const
   return (
     <div>
       <DeckPanelSection title={t('settings')}>
@@ -72,14 +77,26 @@ export default function Index() {
         </DeckPanelSectionRow>
         {settingsState.size === 'minimalist' ? (
           <DeckPanelSectionRow>
-            <ToggleField
+            <DropdownItem
               label={t('expandOnHover')}
               description={t('expandOnHoverDescription')}
-              checked={settingsState.labelOnHover}
-              onChange={(newVal: boolean) => {
+              menuLabel={t('expandOnHover')}
+              rgOptions={hoverTypeOptions.map((o) => ({
+                data: o.data,
+                label: o.label
+              }))}
+              selectedOption={
+                hoverTypeOptions.find(
+                  (o) => o.value === settingsState.labelTypeOnHover
+                )?.data || 0
+              }
+              onChange={(newVal: { data: number; label: string }) => {
+                const newHoverType =
+                  hoverTypeOptions.find((o) => o.data === newVal.data)?.value ||
+                  'off'
                 settingsDispatch({
                   type: 'set-label-on-hover',
-                  value: newVal
+                  value: newHoverType
                 })
               }}
             />
