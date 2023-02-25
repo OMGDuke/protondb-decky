@@ -1,4 +1,5 @@
 # ProtonDB Badges
+[![Crowdin](https://badges.crowdin.net/protondb-decky/localized.svg)](https://crowdin.com/project/protondb-decky)
 
 Display tappable ProtonDB badges on your game pages
 
