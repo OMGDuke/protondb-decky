@@ -28,13 +28,8 @@ This plugin requires [Decky Loader](https://github.com/SteamDeckHomebrew/decky-l
 [![Crowdin](https://badges.crowdin.net/protondb-decky/localized.svg)](https://crowdin.com/project/protondb-decky)
 
 Localisation is now available via Crowdin. Please help with translations if you can!
+
 ## Contributors
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
 
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+[![ProtonDB Decky](https://contrib.rocks/image?repo=omgduke/protondb-decky)](https://github.com/omgduke/protondb-decky/graphs/contributors)
