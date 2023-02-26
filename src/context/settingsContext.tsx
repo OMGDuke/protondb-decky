@@ -1,10 +1,6 @@
 import * as React from 'react'
 
 const LOCAL_STORAGE_KEY = 'protondb-badges-settings'
-<<<<<<< HEAD
-
-=======
->>>>>>> f052ca4dbe936595db988f02470ca04e8fae6d07
 type State = {
   size: 'regular' | 'small' | 'minimalist'
   position: 'tl' | 'tr' | 'bl' | 'br'
