@@ -31,5 +31,5 @@ Localisation is now available via Crowdin. Please help with translations if you 
 
 ## Contributors
 
-
-[![ProtonDB Decky](https://contrib.rocks/image?repo=omgduke/protondb-decky)](https://github.com/omgduke/protondb-decky/graphs/contributors)
+<!-- readme: collaborators,contributors -start -->
+<!-- readme: collaborators,contributors -end -->
