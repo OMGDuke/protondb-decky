@@ -7,7 +7,6 @@ import {
 import { FaReact } from 'react-icons/fa'
 
 import Settings from './components/settings'
-import { ProtonDBCacheProvider } from './context/protobDbCacheContext'
 import { SettingsProvider } from './context/settingsContext'
 import patchHome from './lib/patchHome'
 import patchLibrary from './lib/patchLibrary'
@@ -21,11 +20,9 @@ export default definePlugin((serverAPI: ServerAPI) => {
     title: <div className={staticClasses.Title}>ProtonDB Badges</div>,
     icon: <FaReact />,
     content: (
-      <ProtonDBCacheProvider>
-        <SettingsProvider>
-          <Settings />
-        </SettingsProvider>
-      </ProtonDBCacheProvider>
+      <SettingsProvider>
+        <Settings />
+      </SettingsProvider>
     ),
     onDismount() {
       serverAPI.routerHook.removePatch('/library/app/:appid', libraryAppPatch)

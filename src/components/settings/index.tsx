@@ -7,8 +7,9 @@ import {
   PanelSectionRow
 } from 'decky-frontend-lib'
 import React, { FC, ReactNode } from 'react'
-import { useProtonDBCache } from '../../context/protobDbCacheContext'
+import { clearCache } from '../../cache/protobDbCache'
 import { useSettings } from '../../context/settingsContext'
+import useTranslations from '../../hooks/useTranslations'
 
 type ExtendedPanelSectionProps = PanelSectionProps & {
   children: ReactNode
@@ -28,31 +29,34 @@ type ExtendedButtonItemProps = ButtonItemProps & {
 
 const DeckButtonItem = ButtonItem as FC<ExtendedButtonItemProps>
 
-const sizeOptions = [
-  { data: 0, label: 'Regular', value: 'regular' },
-  { data: 1, label: 'Small', value: 'small' },
-  { data: 2, label: 'Minimalist', value: 'minimalist' }
-] as const
-
-const positionOptions = [
-  { data: 0, label: 'Top Left', value: 'tl' },
-  { data: 1, label: 'Top Right', value: 'tr' }
-  // TODO: These can be reenabled once we're properly injecting into topcapsule
-  // { data: 2, label: 'Bottom Left', value: 'bl' },
-  // { data: 3, label: 'Bottom Right', value: 'br' }
-] as const
-
 export default function Index() {
   const { state: settingsState, dispatch: settingsDispatch } = useSettings()
-  const { dispatch: cacheDispatch } = useProtonDBCache()
+  const t = useTranslations()
+
+  const sizeOptions = [
+    { data: 0, label: t('sizeRegular'), value: 'regular' },
+    { data: 1, label: t('sizeSmall'), value: 'small' },
+    { data: 2, label: t('sizeMinimalist'), value: 'minimalist' }
+  ] as const
+
+  const positionOptions = [
+    { data: 0, label: t('positionTopLeft'), value: 'tl' },
+    { data: 1, label: t('positionTopRight'), value: 'tr' }
+  ] as const
+
+  const hoverTypeOptions = [
+    { data: 0, label: t('expandOnHoverOff'), value: 'off' },
+    { data: 1, label: t('sizeSmall'), value: 'small' },
+    { data: 2, label: t('sizeRegular'), value: 'regular' }
+  ] as const
   return (
     <div>
-      <DeckPanelSection title="Settings">
+      <DeckPanelSection title={t('settings')}>
         <DeckPanelSectionRow>
           <DropdownItem
-            label="Badge Size"
-            description="Choose a different size for the badge"
-            menuLabel="Badge Size"
+            label={t('badgeSize')}
+            description={t('badgeSizeDescription')}
+            menuLabel={t('badgeSize')}
             rgOptions={sizeOptions.map((o) => ({
               data: o.data,
               label: o.label
@@ -68,17 +72,43 @@ export default function Index() {
                 type: 'set-size',
                 value: newSize
               })
-              SteamClient.Storage.SetObject('protondb-badges-settings', {
-                size: newSize
-              })
             }}
           />
         </DeckPanelSectionRow>
+        {settingsState.size === 'minimalist' ? (
+          <DeckPanelSectionRow>
+            <DropdownItem
+              label={t('expandOnHover')}
+              description={t('expandOnHoverDescription')}
+              menuLabel={t('expandOnHover')}
+              rgOptions={hoverTypeOptions.map((o) => ({
+                data: o.data,
+                label: o.label
+              }))}
+              selectedOption={
+                hoverTypeOptions.find(
+                  (o) => o.value === settingsState.labelTypeOnHover
+                )?.data || 0
+              }
+              onChange={(newVal: { data: number; label: string }) => {
+                const newHoverType =
+                  hoverTypeOptions.find((o) => o.data === newVal.data)?.value ||
+                  'off'
+                settingsDispatch({
+                  type: 'set-label-on-hover',
+                  value: newHoverType
+                })
+              }}
+            />
+          </DeckPanelSectionRow>
+        ) : (
+          ''
+        )}
         <DeckPanelSectionRow>
           <DropdownItem
-            label="Badge Position"
-            description="Positon the badge within the the game page header"
-            menuLabel="Badge Position"
+            label={t('badgePosition')}
+            description={t('badgePositionDescription')}
+            menuLabel={t('badgePosition')}
             rgOptions={positionOptions.map((o) => ({
               data: o.data,
               label: o.label
@@ -95,24 +125,19 @@ export default function Index() {
                 type: 'set-position',
                 value: newPosition
               })
-              SteamClient.Storage.SetObject('protondb-badges-settings', {
-                position: newPosition
-              })
             }}
           />
         </DeckPanelSectionRow>
       </DeckPanelSection>
-      <DeckPanelSection title="Caching">
+      <DeckPanelSection title={t('caching')}>
         <DeckPanelSectionRow>
           <DeckButtonItem
-            label="Clear the cache to force refresh all ProtonDB badges"
-            bottomSeparator={false}
+            label={t('clearCacheLabel')}
+            bottomSeparator="none"
             layout="below"
-            onClick={() => {
-              cacheDispatch({ type: 'clear-cache' })
-            }}
+            onClick={() => clearCache()}
           >
-            Clear ProtonDB Cache
+            {t('clearCache')}
           </DeckButtonItem>
         </DeckPanelSectionRow>
       </DeckPanelSection>

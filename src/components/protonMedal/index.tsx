@@ -1,19 +1,23 @@
-import { Button, ButtonProps, Router, ServerAPI } from 'decky-frontend-lib'
+import { Navigation, ServerAPI } from 'decky-frontend-lib'
 import { ReactElement, FC, CSSProperties, ReactNode } from 'react'
 import { FaReact } from 'react-icons/fa'
 import { IoLogoTux } from 'react-icons/io'
+
 import { useSettings } from '../../context/settingsContext'
 
 import useAppId from '../../hooks/useAppId'
 import useBadgeData from '../../hooks/useBadgeData'
+import useTranslations from '../../hooks/useTranslations'
 
-import './protonMedal.css'
+import { Button, ButtonProps } from '../button'
+
+import style from './style'
 
 type ExtendedButtonProps = ButtonProps & {
   children: ReactNode
-
   type: 'button'
-  style: CSSProperties
+  style?: CSSProperties
+  className: string
 }
 
 const DeckButton = Button as FC<ExtendedButtonProps>
@@ -26,87 +30,64 @@ const positonSettings = {
 }
 
 export default function ProtonMedal({
-  serverAPI,
-  className
+  serverAPI
 }: {
   serverAPI: ServerAPI
-  className: string
 }): ReactElement {
+  const t = useTranslations()
   const appId = useAppId(serverAPI)
   const { protonDBTier, linuxSupport, refresh } = useBadgeData(serverAPI, appId)
 
   const { state } = useSettings()
 
   if (!protonDBTier) return <></>
-  const tierClass = `protondb-decky-indicator-${protonDBTier?.key}`
+
+  const tierClass = `protondb-decky-indicator-${protonDBTier}` as const
   const nativeClass = linuxSupport ? 'protondb-decky-indicator-native' : ''
-  if (state.size === 'minimalist') {
-    return (
-      <DeckButton
-        className={`${className} ${tierClass} ${nativeClass}`}
-        type="button"
-        onClick={() => {
-          Router.NavigateToExternalWeb(`https://www.protondb.com/app/${appId}`)
-        }}
-        style={{
-          background: protonDBTier?.backgroundColor,
-          color: protonDBTier?.textColor,
-          padding: '6px',
-          ...positonSettings[state.position]
-        }}
-      >
-        {linuxSupport ? (
-          <IoLogoTux size={20} style={{ marginRight: 10 }} />
-        ) : (
-          <></>
-        )}
-        {/* The ProtonDB logo has a distracting background, so React's logo is being used as a close substitute */}
-        <FaReact size={20} />
-      </DeckButton>
-    )
-  }
+  const sizeClass = `protondb-decky-indicator-${
+    state.size || 'regular'
+  }` as const
+
+  const labelTypeOnHoverClass =
+    state.size !== 'minimalist' || state.labelTypeOnHover === 'off'
+      ? ''
+      : `protondb-decky-indicator-label-on-hover-${state.labelTypeOnHover}`
 
   return (
-    <DeckButton
-      className={`${className} ${tierClass} ${nativeClass}`}
-      type="button"
-      onClick={async () => {
-        refresh()
-        Router.NavigateToExternalWeb(`https://www.protondb.com/app/${appId}`)
-      }}
-      style={{
-        background: protonDBTier?.backgroundColor,
-        color: protonDBTier?.textColor,
-        flexDirection: state.size === 'small' ? 'column' : 'row',
-        padding: state.size === 'small' ? '6px 8px ' : '6px 18px',
-        ...positonSettings[state.position]
-      }}
+    <div
+      className="protondb-decky-indicator-container"
+      style={{ position: 'absolute', ...positonSettings[state.position] }}
     >
-      <div>
-        {linuxSupport ? (
-          <IoLogoTux
-            size={state.size === 'small' ? 20 : 28}
-            style={{ marginRight: 10 }}
-          />
-        ) : (
-          <></>
-        )}
-        {/* The ProtonDB logo has a distracting background, so React's logo is being used as a close substitute */}
-        <FaReact size={state.size === 'small' ? 20 : 28} />
-      </div>
-      <span
-        style={{
-          marginLeft: state.size === 'small' ? 0 : '10px',
-          fontSize: state.size === 'small' ? '12px' : '24px',
-          width: state.size === 'small' ? 'auto' : '132px',
-          lineHeight: state.size === 'small' ? '12px' : '24px',
-          marginRight: state.size === 'small' ? 0 : '28px'
+      {style}
+      <DeckButton
+        className={`protondb-decky-indicator ${tierClass} ${nativeClass} ${sizeClass} ${labelTypeOnHoverClass}`}
+        type="button"
+        onClick={async () => {
+          refresh()
+          Navigation.NavigateToExternalWeb(
+            `https://www.protondb.com/app/${appId}`
+          )
         }}
       >
-        {state.size === 'small'
-          ? protonDBTier?.label.slice(0, 4)
-          : protonDBTier?.label}
-      </span>
-    </DeckButton>
+        <div>
+          {linuxSupport ? (
+            <IoLogoTux
+              size={state.size !== 'regular' ? 20 : 28}
+              style={{ marginRight: 10 }}
+            />
+          ) : (
+            <></>
+          )}
+          {/* The ProtonDB logo has a distracting background, so React's logo is being used as a close substitute */}
+          <FaReact size={state.size !== 'regular' ? 20 : 28} />
+        </div>
+        <span>
+          {state.size === 'small' ||
+          (state.size === 'minimalist' && state.labelTypeOnHover !== 'regular')
+            ? t(`tierMin${protonDBTier}`)
+            : t(`tier${protonDBTier}`)}
+        </span>
+      </DeckButton>
+    </div>
   )
 }

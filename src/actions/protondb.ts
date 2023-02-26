@@ -4,7 +4,7 @@ import ProtonDBTier from '../../types/ProtonDBTier'
 export async function getProtonDBInfo(
   serverAPI: ServerAPI,
   appId: string
-): Promise<ProtonDBTier> {
+): Promise<ProtonDBTier | undefined> {
   const req = {
     method: 'GET',
     url: `https://www.protondb.com/api/v1/reports/summaries/${appId}.json`
@@ -15,9 +15,8 @@ export async function getProtonDBInfo(
   >('http_request', req)
   if (res.success && res.result.status === 200) {
     return JSON.parse(res.result?.body).tier
-  } else {
-    return 'pending'
   }
+  return undefined
 }
 
 export async function getLinuxInfo(
