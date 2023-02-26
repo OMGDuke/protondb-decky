@@ -14,9 +14,9 @@
     "sizeMinimalist": "Minimalist",
     "sizeRegular": "Regular",
     "sizeSmall": "Small",
-    "tierborked": "BORKED",
-    "tierbronze": "BRONZE",
-    "tiergold": "GOLD",
+    "tierborked": "НЕРАБОТЕЩИ",
+    "tierbronze": "БРОНЗ",
+    "tiergold": "ЗЛАТО",
     "tierMinborked": "BORK",
     "tierMinbronze": "BRON",
     "tierMingold": "GOLD",
@@ -24,7 +24,7 @@
     "tierMinplatinum": "PLAT",
     "tierMinsilver": "SILV",
     "tierpending": "PENDING",
-    "tierplatinum": "PLATINUM",
-    "tiersilver": "SILVER",
+    "tierplatinum": "ПЛАТИНА",
+    "tiersilver": "СРЕБРО",
     "expandOnHoverOff": "Off"
 }
