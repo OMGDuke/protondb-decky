@@ -33,7 +33,7 @@ This plugin requires [Decky Loader](https://github.com/SteamDeckHomebrew/decky-l
         <a href="https://github.com/OMGDuke">
             <img src="https://avatars.githubusercontent.com/u/17005532?v=4" width="100;" alt="OMGDuke"/>
             <br />
-            <sub><b>Null</b></sub>
+            <sub><b>OMGDuke</b></sub>
         </a>
     </td>
     <td align="center">
