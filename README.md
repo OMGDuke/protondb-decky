@@ -1,5 +1,5 @@
 # ProtonDB Badges
-[![Crowdin](https://badges.crowdin.net/protondb-decky/localized.svg)](https://crowdin.com/project/protondb-decky) [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/ZU74G2NJzk)
+[![Crowdin](https://badges.crowdin.net/protondb-decky/localized.svg)](https://crowdin.com/project/protondb-decky) [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://deckbrew.xyz/discord)
 
 Display tappable ProtonDB badges on your game pages
 
@@ -21,8 +21,8 @@ Place the badge around different corners of the game page header.
 
 This plugin requires [Decky Loader](https://github.com/SteamDeckHomebrew/decky-loader). ProtonDB Badges is available on the store.
 
-## PluginLoader Discord
-[![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/ZU74G2NJzk)
+## Steam Deck Homebrew Discord
+[![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://deckbrew.xyz/discord)
 
 ## Contributors
 
