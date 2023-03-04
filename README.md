@@ -56,6 +56,13 @@ This plugin requires [Decky Loader](https://github.com/SteamDeckHomebrew/decky-l
             <br />
             <sub><b>Party Wumpus</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/seanzhang98">
+            <img src="https://avatars.githubusercontent.com/u/34902361?v=4" width="100;" alt="seanzhang98"/>
+            <br />
+            <sub><b>Sean</b></sub>
+        </a>
     </td></tr>
 </table>
 <!-- readme: collaborators,contributors -end -->
