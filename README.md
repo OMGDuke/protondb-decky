@@ -63,6 +63,13 @@ This plugin requires [Decky Loader](https://github.com/SteamDeckHomebrew/decky-l
             <br />
             <sub><b>Sean</b></sub>
         </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/david082321">
+            <img src="https://avatars.githubusercontent.com/u/7046617?v=4" width="100;" alt="david082321"/>
+            <br />
+            <sub><b>Null</b></sub>
+        </a>
     </td></tr>
 </table>
 <!-- readme: collaborators,contributors -end -->
