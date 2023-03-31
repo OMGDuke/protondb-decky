@@ -30,8 +30,7 @@
     "@rollup/plugin-node-resolve": "^14.1.0",
     "@rollup/plugin-replace": "^4.0.0",
     "@rollup/plugin-typescript": "^9.0.2",
-    "@types/react": "18.0.28",
-    "@types/react-dom": "^18.0.11",
+    "@types/react": "16.14.0",
     "@types/webpack": "^5.28.0",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
     "@typescript-eslint/parser": "^5.53.0",
@@ -48,8 +47,6 @@
   "dependencies": {
     "decky-frontend-lib": "^3.19.1",
     "localforage": "^1.10.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-icons": "^4.7.1"
   },
   "pnpm": {
