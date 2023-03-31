@@ -1,5 +1,5 @@
 import { Navigation, ServerAPI } from 'decky-frontend-lib'
-import { ReactElement, FC, CSSProperties, ReactNode } from 'react'
+import React, { ReactElement, FC, CSSProperties, ReactNode } from 'react'
 import { FaReact } from 'react-icons/fa'
 import { IoLogoTux } from 'react-icons/io'
 

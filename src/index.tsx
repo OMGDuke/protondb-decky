@@ -1,3 +1,4 @@
+import React from 'react'
 import { definePlugin, ServerAPI, staticClasses } from 'decky-frontend-lib'
 import { FaReact } from 'react-icons/fa'
 

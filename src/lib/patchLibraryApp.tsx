@@ -5,7 +5,7 @@ import {
   findInReactTree,
   appDetailsClasses
 } from 'decky-frontend-lib'
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import ProtonMedal from '../components/protonMedal'
 import { SettingsProvider } from '../context/settingsContext'
 
