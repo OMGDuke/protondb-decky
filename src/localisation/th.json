@@ -1,6 +1,6 @@
 {
     "badgePosition": "ตําแหน่งตรารับรอง",
-    "badgePositionDescription": "Position the badge within the game page header",
+    "badgePositionDescription": "ตำแหน่งของตรารับรองในหน้าเกมส์ส่วนบน",
     "badgeSize": "ขนาดตรารับรอง",
     "badgeSizeDescription": "เลือกขนาดตรารับรอง",
     "caching": "Caching",
@@ -15,16 +15,16 @@
     "sizeRegular": "Regular",
     "sizeSmall": "Small",
     "tierborked": "BORKED",
-    "tierbronze": "BRONZE",
-    "tiergold": "GOLD",
+    "tierbronze": "ทองแดง",
+    "tiergold": "ทอง",
     "tierMinborked": "BORK",
-    "tierMinbronze": "BRON",
+    "tierMinbronze": "ทองแดง",
     "tierMingold": "ทองคำ",
-    "tierMinpending": "PEND",
-    "tierMinplatinum": "PLAT",
-    "tierMinsilver": "SILV",
-    "tierpending": "PENDING",
-    "tierplatinum": "PLATINUM",
+    "tierMinpending": "รอ",
+    "tierMinplatinum": "แพลต",
+    "tierMinsilver": "เงิน",
+    "tierpending": "รอตรวจสอบ",
+    "tierplatinum": "แพลตตินั่ม",
     "tiersilver": "เงิน",
-    "expandOnHoverOff": "Off"
+    "expandOnHoverOff": "ปิด"
 }
