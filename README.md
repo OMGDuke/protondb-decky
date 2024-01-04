@@ -24,6 +24,25 @@ This plugin requires [Decky Loader](https://github.com/SteamDeckHomebrew/decky-l
 ## Steam Deck Homebrew Discord
 [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://deckbrew.xyz/discord)
 
+## Press and Media
+[Game Rant](https://gamerant.com/steam-deck-how-to-use-the-proton-compatibility-features/)
+
+[PCGamesN](https://www.pcgamesn.com/steam-deck/compatible-games-protondb-plugin)
+
+[Steam Deck Life](https://steamdecklife.com/2022/10/18/protondb-badges-steam-deck-plugin/)
+
+[Tom's Guide](https://www.tomsguide.com/opinion/i-owe-every-steam-deck-owner-a-massive-apology-its-a-great-gaming-device)
+
+[FlipScreen Games](https://youtu.be/3kBsjJKTidU?t=449)
+
+[GamingOnLinux](https://youtu.be/YQhvNiI3hKI?t=217)
+
+[Gardiner Bryant](https://youtu.be/uLpQbaRB9hc?t=219)
+
+[Midas Gamespace](https://youtu.be/Rc9DIhqxLnM?t=196)
+
+[Steam Deck Gaming](https://youtu.be/IONuww8pXqM?t=219)
+
 ## Other Plugins
 
 Check out my other plugin [Game Theme Music ❤️](https://github.com/OMGDuke/SDH-GameThemeMusic)
