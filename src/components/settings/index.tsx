@@ -11,6 +11,7 @@ import React, { FC, ReactNode } from 'react'
 import { clearCache } from '../../cache/protobDbCache'
 import useTranslations from '../../hooks/useTranslations'
 import { useSettings } from '../../hooks/useSettings'
+import Spinner from '../spinner'
 
 type ExtendedPanelSectionProps = PanelSectionProps & {
   children: ReactNode
@@ -31,7 +32,7 @@ type ExtendedButtonItemProps = ButtonItemProps & {
 const DeckButtonItem = ButtonItem as FC<ExtendedButtonItemProps>
 
 export default function Index({ serverAPI }: { serverAPI: ServerAPI }) {
-  const { settings, setSize, setPosition, setLabelOnHover } =
+  const { settings, setSize, setPosition, setLabelOnHover, loading } =
     useSettings(serverAPI)
   const t = useTranslations()
 
@@ -51,6 +52,20 @@ export default function Index({ serverAPI }: { serverAPI: ServerAPI }) {
     { data: 1, label: t('sizeSmall'), value: 'small' },
     { data: 2, label: t('sizeRegular'), value: 'regular' }
   ] as const
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 10
+        }}
+      >
+        <Spinner />
+      </div>
+    )
+  }
   return (
     <div>
       <DeckPanelSection title={t('settings')}>

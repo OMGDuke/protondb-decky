@@ -37,9 +37,9 @@ export default function ProtonMedal({
   const appId = useAppId(serverAPI)
   const { protonDBTier, linuxSupport, refresh } = useBadgeData(serverAPI, appId)
 
-  const { settings } = useSettings(serverAPI)
+  const { settings, loading } = useSettings(serverAPI)
 
-  if (!protonDBTier) return <></>
+  if (!protonDBTier || loading) return <></>
 
   const tierClass = `protondb-decky-indicator-${protonDBTier}` as const
   const nativeClass = linuxSupport ? 'protondb-decky-indicator-native' : ''

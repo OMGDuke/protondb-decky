@@ -15,6 +15,8 @@ export const useSettings = (serverApi: ServerAPI) => {
     labelTypeOnHover: 'off'
   })
 
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
     const getData = async () => {
       const savedSettings = (
@@ -24,6 +26,7 @@ export const useSettings = (serverApi: ServerAPI) => {
         })
       ).result as Settings
       setSettings(savedSettings)
+      setLoading(false)
     }
     getData()
   }, [])
@@ -54,5 +57,5 @@ export const useSettings = (serverApi: ServerAPI) => {
     updateSettings('labelTypeOnHover', value)
   }
 
-  return { settings, setSize, setPosition, setLabelOnHover }
+  return { settings, setSize, setPosition, setLabelOnHover, loading }
 }
