@@ -24,7 +24,6 @@ export function clearCache(appId?: string) {
   if (appId?.length) {
     localforage.removeItem(appId)
   } else {
-    localStorage.removeItem(STORAGE_KEY)
     localforage.clear()
   }
 }
