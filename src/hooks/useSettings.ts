@@ -18,7 +18,7 @@ export const useSettings = (serverApi: ServerAPI) => {
   useEffect(() => {
     const getData = async () => {
       const savedSettings = (
-        await serverApi.callPluginMethod('get_settings', {
+        await serverApi.callPluginMethod('get_setting', {
           key: 'settings',
           default: settings
         })
