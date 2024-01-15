@@ -3,8 +3,6 @@ import React, { ReactElement, FC, CSSProperties, ReactNode } from 'react'
 import { FaReact } from 'react-icons/fa'
 import { IoLogoTux } from 'react-icons/io'
 
-import { useSettings } from '../../context/settingsContext'
-
 import useAppId from '../../hooks/useAppId'
 import useBadgeData from '../../hooks/useBadgeData'
 import useTranslations from '../../hooks/useTranslations'
@@ -12,6 +10,7 @@ import useTranslations from '../../hooks/useTranslations'
 import { Button, ButtonProps } from '../button'
 
 import style from './style'
+import { useSettings } from '../../hooks/useSettings'
 
 type ExtendedButtonProps = ButtonProps & {
   children: ReactNode
@@ -38,25 +37,25 @@ export default function ProtonMedal({
   const appId = useAppId(serverAPI)
   const { protonDBTier, linuxSupport, refresh } = useBadgeData(serverAPI, appId)
 
-  const { state } = useSettings()
+  const { settings, loading } = useSettings(serverAPI)
 
-  if (!protonDBTier) return <></>
+  if (!protonDBTier || loading) return <></>
 
   const tierClass = `protondb-decky-indicator-${protonDBTier}` as const
   const nativeClass = linuxSupport ? 'protondb-decky-indicator-native' : ''
   const sizeClass = `protondb-decky-indicator-${
-    state.size || 'regular'
+    settings.size || 'regular'
   }` as const
 
   const labelTypeOnHoverClass =
-    state.size !== 'minimalist' || state.labelTypeOnHover === 'off'
+    settings.size !== 'minimalist' || settings.labelTypeOnHover === 'off'
       ? ''
-      : `protondb-decky-indicator-label-on-hover-${state.labelTypeOnHover}`
+      : `protondb-decky-indicator-label-on-hover-${settings.labelTypeOnHover}`
 
   return (
     <div
       className="protondb-decky-indicator-container"
-      style={{ position: 'absolute', ...positonSettings[state.position] }}
+      style={{ position: 'absolute', ...positonSettings[settings.position] }}
     >
       {style}
       <DeckButton
@@ -72,18 +71,19 @@ export default function ProtonMedal({
         <div>
           {linuxSupport ? (
             <IoLogoTux
-              size={state.size !== 'regular' ? 20 : 28}
+              size={settings.size !== 'regular' ? 20 : 28}
               style={{ marginRight: 10 }}
             />
           ) : (
             <></>
           )}
           {/* The ProtonDB logo has a distracting background, so React's logo is being used as a close substitute */}
-          <FaReact size={state.size !== 'regular' ? 20 : 28} />
+          <FaReact size={settings.size !== 'regular' ? 20 : 28} />
         </div>
         <span>
-          {state.size === 'small' ||
-          (state.size === 'minimalist' && state.labelTypeOnHover !== 'regular')
+          {settings.size === 'small' ||
+          (settings.size === 'minimalist' &&
+            settings.labelTypeOnHover !== 'regular')
             ? t(`tierMin${protonDBTier}`)
             : t(`tier${protonDBTier}`)}
         </span>

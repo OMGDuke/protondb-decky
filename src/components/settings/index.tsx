@@ -4,12 +4,14 @@ import {
   DropdownItem,
   PanelSection,
   PanelSectionProps,
-  PanelSectionRow
+  PanelSectionRow,
+  ServerAPI
 } from 'decky-frontend-lib'
 import React, { FC, ReactNode } from 'react'
 import { clearCache } from '../../cache/protobDbCache'
-import { useSettings } from '../../context/settingsContext'
 import useTranslations from '../../hooks/useTranslations'
+import { useSettings } from '../../hooks/useSettings'
+import Spinner from '../spinner'
 
 type ExtendedPanelSectionProps = PanelSectionProps & {
   children: ReactNode
@@ -29,8 +31,9 @@ type ExtendedButtonItemProps = ButtonItemProps & {
 
 const DeckButtonItem = ButtonItem as FC<ExtendedButtonItemProps>
 
-export default function Index() {
-  const { state: settingsState, dispatch: settingsDispatch } = useSettings()
+export default function Index({ serverAPI }: { serverAPI: ServerAPI }) {
+  const { settings, setSize, setPosition, setLabelOnHover, loading } =
+    useSettings(serverAPI)
   const t = useTranslations()
 
   const sizeOptions = [
@@ -49,6 +52,20 @@ export default function Index() {
     { data: 1, label: t('sizeSmall'), value: 'small' },
     { data: 2, label: t('sizeRegular'), value: 'regular' }
   ] as const
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 10
+        }}
+      >
+        <Spinner />
+      </div>
+    )
+  }
   return (
     <div>
       <DeckPanelSection title={t('settings')}>
@@ -62,20 +79,17 @@ export default function Index() {
               label: o.label
             }))}
             selectedOption={
-              sizeOptions.find((o) => o.value === settingsState.size)?.data || 0
+              sizeOptions.find((o) => o.value === settings.size)?.data || 0
             }
             onChange={(newVal: { data: number; label: string }) => {
               const newSize =
                 sizeOptions.find((o) => o.data === newVal.data)?.value ||
                 'regular'
-              settingsDispatch({
-                type: 'set-size',
-                value: newSize
-              })
+              setSize(newSize)
             }}
           />
         </DeckPanelSectionRow>
-        {settingsState.size === 'minimalist' ? (
+        {settings.size === 'minimalist' ? (
           <DeckPanelSectionRow>
             <DropdownItem
               label={t('expandOnHover')}
@@ -87,17 +101,14 @@ export default function Index() {
               }))}
               selectedOption={
                 hoverTypeOptions.find(
-                  (o) => o.value === settingsState.labelTypeOnHover
+                  (o) => o.value === settings.labelTypeOnHover
                 )?.data || 0
               }
               onChange={(newVal: { data: number; label: string }) => {
                 const newHoverType =
                   hoverTypeOptions.find((o) => o.data === newVal.data)?.value ||
                   'off'
-                settingsDispatch({
-                  type: 'set-label-on-hover',
-                  value: newHoverType
-                })
+                setLabelOnHover(newHoverType)
               }}
             />
           </DeckPanelSectionRow>
@@ -114,17 +125,14 @@ export default function Index() {
               label: o.label
             }))}
             selectedOption={
-              positionOptions.find((o) => o.value === settingsState.position)
+              positionOptions.find((o) => o.value === settings.position)
                 ?.data || 0
             }
             onChange={(newVal: { data: number; label: string }) => {
               const newPosition =
                 positionOptions.find((o) => o.data === newVal.data)?.value ||
                 'tl'
-              settingsDispatch({
-                type: 'set-position',
-                value: newPosition
-              })
+              setPosition(newPosition)
             }}
           />
         </DeckPanelSectionRow>
