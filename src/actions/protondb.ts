@@ -1,41 +1,45 @@
-import { ServerAPI } from 'decky-frontend-lib'
+import { fetchNoCors } from '@decky/api';
 import ProtonDBTier from '../../types/ProtonDBTier'
 
 export async function getProtonDBInfo(
-  serverAPI: ServerAPI,
   appId: string
 ): Promise<ProtonDBTier | undefined> {
-  const req = {
-    method: 'GET',
-    url: `https://www.protondb.com/api/v1/reports/summaries/${appId}.json`
-  }
-  const res = await serverAPI.callServerMethod<
-    { method: string; url: string },
-    { body: string; status: number }
-  >('http_request', req)
-  if (res.success && res.result.status === 200) {
-    return JSON.parse(res.result?.body).tier
+  try {
+    const res = await fetchNoCors(
+      `https://www.protondb.com/api/v1/reports/summaries/${appId}.json`,
+      {
+        method: 'GET'
+      }
+    )
+
+    if (res.status === 200) {
+      return (await res.json())?.tier
+    }
+  } catch (error) {
+   console.log(error)
+   return "pending"
   }
   return undefined
 }
 
 export async function getLinuxInfo(
-  serverAPI: ServerAPI,
   appId: string
 ): Promise<boolean> {
-  const req = {
-    method: 'GET',
-    url: `https://www.protondb.com/proxy/steam/api/appdetails/?appids=${appId}`
-  }
-  const res = await serverAPI.callServerMethod<
-    { method: string; url: string },
-    { body: string; status: number }
-  >('http_request', req)
-  if (res.success && res.result.status === 200) {
-    return Boolean(
-      JSON.parse(res.result?.body)?.[appId as string]?.data?.platforms?.linux
+  try {
+    const res = await fetchNoCors(
+      `https://www.protondb.com/proxy/steam/api/appdetails/?appids=${appId}`,
+      {
+        method: 'GET'
+      }
     )
-  } else {
-    return false
+
+    if (res.status === 200) {
+      return Boolean(
+        (await res.json())?.[appId as string]?.data?.platforms?.linux
+      )
+    }
+  } catch (error) {
+   console.log(error);
   }
+  return false
 }

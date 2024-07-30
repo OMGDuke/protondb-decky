@@ -1,4 +1,4 @@
-import { ReactRouter } from 'decky-frontend-lib'
+import { ReactRouter } from '@decky/ui'
 
 export const useParams = Object.values(ReactRouter).find((val) =>
   /return (\w)\?\1\.params:{}/.test(`${val}`)

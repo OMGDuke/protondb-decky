@@ -1,15 +1,15 @@
 import {
   afterPatch,
-  ServerAPI,
   wrapReactType,
   findInReactTree,
   appDetailsClasses
-} from 'decky-frontend-lib'
+} from '@decky/ui'
+import { routerHook } from '@decky/api';
 import React, { ReactElement } from 'react'
 import ProtonMedal from '../components/protonMedal'
 
-function patchLibraryApp(serverAPI: ServerAPI) {
-  return serverAPI.routerHook.addPatch(
+function patchLibraryApp() {
+  return routerHook.addPatch(
     '/library/app/:appid',
     (props?: { path?: string; children?: ReactElement }) => {
       if (!props?.children?.props?.renderFunc) {
@@ -44,7 +44,7 @@ function patchLibraryApp(serverAPI: ServerAPI) {
               container.props.children.splice(
                 1,
                 0,
-                <ProtonMedal serverAPI={serverAPI} />
+                <ProtonMedal />
               )
 
               return ret2

@@ -2,6 +2,7 @@
   "name": "ProtonDB Badges",
   "author": "OMGDuke",
   "flags": [],
+  "api_version": 2,
   "publish": {
     "tags": ["protondb"],
     "description": "Display tappable ProtonDB badges on your game pages",

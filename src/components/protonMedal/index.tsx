@@ -1,4 +1,4 @@
-import { Navigation, ServerAPI } from 'decky-frontend-lib'
+import { Navigation } from '@decky/ui'
 import React, { ReactElement, FC, CSSProperties, ReactNode } from 'react'
 import { FaReact } from 'react-icons/fa'
 import { IoLogoTux } from 'react-icons/io'
@@ -28,16 +28,12 @@ const positonSettings = {
   br: { bottom: '40px', right: '20px' }
 }
 
-export default function ProtonMedal({
-  serverAPI
-}: {
-  serverAPI: ServerAPI
-}): ReactElement {
+export default function ProtonMedal(): ReactElement {
   const t = useTranslations()
-  const appId = useAppId(serverAPI)
-  const { protonDBTier, linuxSupport, refresh } = useBadgeData(serverAPI, appId)
+  const appId = useAppId()
+  const { protonDBTier, linuxSupport, refresh } = useBadgeData(appId)
 
-  const { settings, loading } = useSettings(serverAPI)
+  const { settings, loading } = useSettings()
 
   if (!protonDBTier || loading) return <></>
 
