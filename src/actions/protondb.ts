@@ -27,7 +27,7 @@ export async function getLinuxInfo(
 ): Promise<boolean> {
   try {
     const res = await fetchNoCors(
-      `https://www.protondb.com/proxy/steam/api/appdetails/?appids=${appId}`,
+      `https://store.steampowered.com/api/appdetails/?appids=${appId}`,
       {
         method: 'GET'
       }
