@@ -67,14 +67,13 @@ export default function ProtonMedal(): ReactElement {
         <div>
           {linuxSupport ? (
             <IoLogoTux
-              size={settings.size !== 'regular' ? 20 : 28}
               style={{ marginRight: 10 }}
             />
           ) : (
             <></>
           )}
           {/* The ProtonDB logo has a distracting background, so React's logo is being used as a close substitute */}
-          <FaReact size={settings.size !== 'regular' ? 20 : 28} />
+          <FaReact />
         </div>
         <span>
           {settings.size === 'small' ||
