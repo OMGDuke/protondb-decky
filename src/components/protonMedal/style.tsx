@@ -124,29 +124,35 @@ export default (
       display: none;
     }
 
+    .protondb-decky-indicator-label-on-hover-small:hover,
     .protondb-decky-indicator-label-on-hover-small.gpfocus {
       flex-direction: column;
       padding: 6px 8px;
     }
 
+    .protondb-decky-indicator-label-on-hover-regular:hover,
     .protondb-decky-indicator-label-on-hover-regular.gpfocus {
       flex-direction: row;
       padding: 6px 18px;
     }
 
+    .protondb-decky-indicator-label-on-hover-small:hover > span,
     .protondb-decky-indicator-label-on-hover-small.gpfocus > span {
       display: block;
     }
 
+    .protondb-decky-indicator-label-on-hover-regular:hover > div,
     .protondb-decky-indicator-label-on-hover-regular.gpfocus > div {
       height: 28px;
     }
 
+    .protondb-decky-indicator-label-on-hover-regular:hover > div > svg,
     .protondb-decky-indicator-label-on-hover-regular.gpfocus > div > svg {
       width: 28px;
       height: 28px;
     }
 
+    .protondb-decky-indicator-label-on-hover-regular:hover > span,
     .protondb-decky-indicator-label-on-hover-regular.gpfocus > span {
       display: block;
       margin-left: 10px;
