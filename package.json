@@ -44,7 +44,8 @@
   "dependencies": {
     "@decky/api": "^1.1.2",
     "localforage": "^1.10.0",
-    "react-icons": "^4.12.0"
+    "react-icons": "^4.12.0",
+    "rxjs": "^7.8.1"
   },
   "pnpm": {
     "peerDependencyRules": {
