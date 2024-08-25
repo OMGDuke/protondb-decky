@@ -60,17 +60,17 @@ Check out my other plugin [Game Theme Music ❤️](https://github.com/OMGDuke/S
         </a>
     </td>
     <td align="center">
-        <a href="https://github.com/EMERALD0874">
-            <img src="https://avatars.githubusercontent.com/u/11338953?v=4" width="100;" alt="EMERALD0874"/>
-            <br />
-            <sub><b>EMERALD</b></sub>
-        </a>
-    </td>
-    <td align="center">
         <a href="https://github.com/FrogTheFrog">
             <img src="https://avatars.githubusercontent.com/u/22381748?v=4" width="100;" alt="FrogTheFrog"/>
             <br />
             <sub><b>Lukas Senionis</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/EMERALD0874">
+            <img src="https://avatars.githubusercontent.com/u/11338953?v=4" width="100;" alt="EMERALD0874"/>
+            <br />
+            <sub><b>EMERALD</b></sub>
         </a>
     </td>
     <td align="center">
