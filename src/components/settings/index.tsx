@@ -4,9 +4,8 @@ import {
   DropdownItem,
   PanelSection,
   PanelSectionProps,
-  PanelSectionRow,
-  ServerAPI
-} from 'decky-frontend-lib'
+  PanelSectionRow
+} from '@decky/ui'
 import React, { FC, ReactNode } from 'react'
 import { clearCache } from '../../cache/protobDbCache'
 import useTranslations from '../../hooks/useTranslations'
@@ -31,9 +30,9 @@ type ExtendedButtonItemProps = ButtonItemProps & {
 
 const DeckButtonItem = ButtonItem as FC<ExtendedButtonItemProps>
 
-export default function Index({ serverAPI }: { serverAPI: ServerAPI }) {
+export default function Index() {
   const { settings, setSize, setPosition, setLabelOnHover, loading } =
-    useSettings(serverAPI)
+    useSettings()
   const t = useTranslations()
 
   const sizeOptions = [

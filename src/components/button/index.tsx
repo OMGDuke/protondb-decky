@@ -1,4 +1,4 @@
-import { DialogButton, DialogButtonProps } from 'decky-frontend-lib'
+import { DialogButton, DialogButtonProps } from '@decky/ui'
 import { FC } from 'react'
 
 export type ButtonProps = DialogButtonProps

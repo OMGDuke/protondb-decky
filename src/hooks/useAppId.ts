@@ -1,4 +1,4 @@
-import { ServerAPI } from 'decky-frontend-lib'
+import { fetchNoCors } from '@decky/api'
 import { useEffect, useState } from 'react'
 import { appTypes } from '../constants'
 import { useParams } from './useParams'
@@ -10,36 +10,40 @@ function cleanString(str: string) {
     .trim()
 }
 
-const useAppId = (serverAPI: ServerAPI) => {
+const useAppId = () => {
   const [appId, setAppId] = useState<string>()
   const { appid: pathId } = useParams<{ appid: string }>()
 
   useEffect(() => {
     let ignore = false
     async function getNonSteamAppId(gameName: string) {
-      const req = {
-        method: 'GET',
-        url: `https://steamcommunity.com/actions/SearchApps/${gameName}`
-      }
-      const res = await serverAPI.callServerMethod<
-        { method: string; url: string },
-        { body: string; status: number }
-      >('http_request', req)
       if (ignore) {
         return
       }
-      if (res.success && res.result.status === 200) {
-        const options = JSON.parse(res.result.body) as {
-          appid: string
-          name: string
-        }[]
-        const appId = options.find((o) => {
-          return cleanString(o.name) === cleanString(gameName)
-        })?.appid
-        setAppId(appId)
-      } else {
-        setAppId(undefined)
+
+      try {
+        const res = await fetchNoCors(
+          `https://steamcommunity.com/actions/SearchApps/${gameName}`,
+          {
+            method: 'GET'
+          }
+        );
+    
+        if (res.status === 200) {
+          const options = await res.json() as {
+            appid: string
+            name: string
+          }[]
+          const appId = options.find((o) => {
+            return cleanString(o.name) === cleanString(gameName)
+          })?.appid
+          setAppId(appId)
+          return
+        }
+      } catch (error) {
+       console.error(error); 
       }
+      setAppId(undefined)
     }
     const appDetails = appStore.GetAppOverviewByGameID(parseInt(pathId))
     const isSteamGame = Boolean(

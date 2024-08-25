@@ -1,4 +1,3 @@
-import { ServerAPI } from 'decky-frontend-lib'
 import { useEffect, useState } from 'react'
 
 import ProtonDBTier from '../../types/ProtonDBTier'
@@ -6,17 +5,13 @@ import { getLinuxInfo, getProtonDBInfo } from '../actions/protondb'
 import { getCache, updateCache } from '../cache/protobDbCache'
 import { isOutdated } from '../lib/time'
 
-const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
+const useBadgeData = (appId: string | undefined) => {
   const [protonDBTier, setProtonDBTier] = useState<ProtonDBTier>()
   const [linuxSupport, setLinuxSupport] = useState<boolean>(false)
 
   async function refresh() {
-    const tierPromise = getProtonDBInfo(serverAPI, appId as string).catch(
-      () => 'pending' as const
-    )
-    const linuxPromise = getLinuxInfo(serverAPI, appId as string).catch(
-      () => false
-    )
+    const tierPromise = getProtonDBInfo(appId as string)
+    const linuxPromise = getLinuxInfo(appId as string)
     const [tier, linuxSupport] = await Promise.all([tierPromise, linuxPromise])
     if (tier?.length && appId?.length) {
       updateCache(appId, {
@@ -38,7 +33,7 @@ const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
         setProtonDBTier(cache.tier)
         if (!isOutdated(cache?.lastUpdated)) return
       }
-      const tier = await getProtonDBInfo(serverAPI, appId as string)
+      const tier = await getProtonDBInfo(appId as string)
       if (ignore) {
         return
       }
@@ -62,7 +57,7 @@ const useBadgeData = (serverAPI: ServerAPI, appId: string | undefined) => {
         setLinuxSupport(cache?.linuxSupport)
         if (!isOutdated(cache?.lastUpdated)) return
       }
-      const linuxSupport = await getLinuxInfo(serverAPI, appId as string)
+      const linuxSupport = await getLinuxInfo(appId as string)
       if (ignore) {
         return
       }

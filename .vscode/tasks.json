@@ -20,11 +20,27 @@
             "problemMatcher": []
         },
         {
-            "label": "updatefrontendlib",
+            "label": "update_ui",
             "type": "shell",
             "group": "build",
-            "detail": "Update deck-frontend-lib",
-            "command": "pnpm update decky-frontend-lib --latest",
+            "detail": "Update DFL",
+            "command": "pnpm update @decky/ui --latest",
+            "problemMatcher": []
+        },
+        {
+            "label": "update_api",
+            "type": "shell",
+            "group": "build",
+            "detail": "Update Decky API",
+            "command": "pnpm update @decky/api --latest",
+            "problemMatcher": []
+        },
+        {
+            "label": "update_rollup",
+            "type": "shell",
+            "group": "build",
+            "detail": "Update Decky Rollup config",
+            "command": "pnpm update @decky/rollup --latest",
             "problemMatcher": []
         },
         {

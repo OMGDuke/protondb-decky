@@ -1,6 +1,6 @@
+import { call } from '@decky/api'
 import { useEffect, useState } from 'react'
-
-import { ServerAPI } from 'decky-frontend-lib'
+import { BehaviorSubject } from 'rxjs'
 
 export type Settings = {
   size: 'regular' | 'small' | 'minimalist'
@@ -8,42 +8,43 @@ export type Settings = {
   labelTypeOnHover: 'off' | 'small' | 'regular'
 }
 
-export const useSettings = (serverApi: ServerAPI) => {
-  const [settings, setSettings] = useState<Settings>({
-    size: 'regular',
-    position: 'tl',
-    labelTypeOnHover: 'off'
-  })
+// Not using the React context here as this approach is simpler.
+const SettingsContext = new BehaviorSubject<Settings>({
+  size: 'regular',
+  position: 'tl',
+  labelTypeOnHover: 'off'
+})
+const LoadingContext = new BehaviorSubject(true)
 
-  const [loading, setLoading] = useState(true)
+function updateSettings(
+  key: keyof Settings,
+  value: Settings[keyof Settings]
+) {
+  const newSettings = { ...SettingsContext.value, [key]: value }
+  call<[string, Settings], Settings>('set_setting', 'settings', newSettings).catch(console.error)
+  SettingsContext.next(newSettings)
+}
+
+export function loadSettings() {
+  LoadingContext.next(true)
+  call<[string, Settings], Settings>('get_setting', 'settings', SettingsContext.value)
+    .then(settings => SettingsContext.next(settings))
+    .catch(console.error)
+    .finally(() => LoadingContext.next(false))
+}
+
+export const useSettings = () => {
+  const [settings, setSettings] = useState(SettingsContext.value)
+  const [loading, setLoading] = useState(LoadingContext.value)
 
   useEffect(() => {
-    const getData = async () => {
-      const savedSettings = (
-        await serverApi.callPluginMethod('get_setting', {
-          key: 'settings',
-          default: settings
-        })
-      ).result as Settings
-      setSettings(savedSettings)
-      setLoading(false)
-    }
-    getData()
-  }, [])
-
-  async function updateSettings(
-    key: keyof Settings,
-    value: Settings[keyof Settings]
-  ) {
-    setSettings((oldSettings) => {
-      const newSettings = { ...oldSettings, [key]: value }
-      serverApi.callPluginMethod('set_setting', {
-        key: 'settings',
-        value: newSettings
-      })
-      return newSettings
-    })
-  }
+    const settingsSub = SettingsContext.asObservable().subscribe((value) => setSettings(value));
+    const loadingSub = LoadingContext.asObservable().subscribe((value) => setLoading(value));
+    return () => {
+      loadingSub.unsubscribe();
+      settingsSub.unsubscribe();
+    };
+  }, []);
 
   function setSize(value: Settings['size']) {
     updateSettings('size', value)
