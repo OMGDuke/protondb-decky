@@ -1,4 +1,6 @@
 # ProtonDB Badges
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/OMGDuke)
+
 [![Crowdin](https://badges.crowdin.net/protondb-decky/localized.svg)](https://crowdin.com/project/protondb-decky) [![Chat](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://deckbrew.xyz/discord)
 
 Display tappable ProtonDB badges on your game pages
